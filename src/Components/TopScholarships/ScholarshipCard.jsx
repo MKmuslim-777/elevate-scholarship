@@ -9,7 +9,7 @@ const ScholarshipCard = () => {
       <figure className="px-10 pt-10">
         <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/50 flex items-center justify-center">
           <img
-            src={"universityImage"}
+            src={"http://localhost:3000/scholarships"}
             alt={`${"universityName"} logo`}
             className="object-cover w-full h-full"
           />

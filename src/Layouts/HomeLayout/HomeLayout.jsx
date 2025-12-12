@@ -15,7 +15,7 @@ const HomeLayout = () => {
       </header>
       <main className="container">
         <TopScholarships></TopScholarships>
-        <ScholarshipCard></ScholarshipCard>
+        {/* <ScholarshipCard></ScholarshipCard> */}
         <Outlet></Outlet>
       </main>
 

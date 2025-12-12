@@ -4,6 +4,9 @@ import App from "../App";
 import HomeLayout from "../Layouts/HomeLayout/HomeLayout";
 import Home from "../Pages/Home/Home";
 import AllScholarship from "../Pages/AllScholarship/AllScholarship";
+import AuthLayout from "../Pages/Auth/AuthLayout/AuthLayout";
+import Login from "../Pages/Auth/Login/Login";
+import Register from "../Pages/Auth/Register/Register";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,20 @@ const router = createBrowserRouter([
       {
         path: "/all-scholarships",
         Component: AllScholarship,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+      {
+        path: "/auth/register",
+        Component: Register,
       },
     ],
   },
