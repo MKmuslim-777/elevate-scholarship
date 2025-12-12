@@ -19,6 +19,10 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.myBtn {
+  @apply btn btn-outline btn-primary hover:text-base-100 font-semibold;
+}
+
 .container {
   @apply md:w-11/12 mx-auto;
 }

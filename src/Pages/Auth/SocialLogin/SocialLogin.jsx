@@ -1,12 +1,29 @@
 import React from "react";
 
 import { useLocation, useNavigate } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
+import useAxios from "../../../Hooks/useAxios";
 
 const SocialLogin = () => {
+  const { signInGoogle } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axios = useAxios();
 
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = () => {
+    signInGoogle().then((result) => {
+      const studentInfo = {
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL,
+      };
+
+      axios.post("/users", studentInfo).then((res) => {
+        console.log(studentInfo);
+        navigate("/");
+      });
+    });
+  };
 
   return (
     <div className=" pb-10">
