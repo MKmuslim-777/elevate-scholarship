@@ -8,7 +8,7 @@ const AuthLayout = () => {
     <div className="">
       <Navbar></Navbar>
       <div>
-        <div className="container">
+        <div className="container mx-auto">
           <Outlet></Outlet>
         </div>
       </div>

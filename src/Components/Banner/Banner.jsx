@@ -14,9 +14,12 @@ const Banner = () => {
             <span className="text-secondary">Scholarship</span>
           </h1>
           <p className="text-black  mt-3.5 text-lg md:pr-[350px]">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat
-            eligendi laudantium mollitia, quis ad accusamus maiores libero quas
-            recusandae distinctio.
+            Elevate Scholarship is your dedicated partner in rising to academic
+            success. We believe financial barriers should never limit potential.
+            Our platform connects you with exclusive, high-value funding
+            opportunities designed to elevate your educational journey,
+            providing the support you need to achieve your 'dream scholarship.'
+            Start your ascent today.
           </p>
 
           <div>

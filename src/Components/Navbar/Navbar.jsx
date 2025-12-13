@@ -40,7 +40,7 @@ const Navbar = () => {
       </li>
       <li className="mr-5">
         <NavLink
-          to={"/AllProperties"}
+          to={"all-scholarships"}
           className={
             "font-semibold text-primary text-[18px] hover:bg-transparent"
           }
@@ -49,7 +49,7 @@ const Navbar = () => {
             src="https://img.icons8.com/material-outlined/24/property.png"
             alt=""
           />{" "}
-          All Properties
+          All Scholarships
         </NavLink>
       </li>
       <li className="mr-5">

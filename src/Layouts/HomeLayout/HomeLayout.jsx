@@ -1,22 +1,16 @@
-import React, { use } from "react";
+import React from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Outlet } from "react-router";
-import Banner from "../../Components/Banner/Banner";
-import TopScholarships from "../../Components/TopScholarships/TopScholarships";
+
 import Footer from "../../Shared/Footer/Footer";
-import ScholarshipCard from "../../Components/TopScholarships/ScholarshipCard";
-import { AuthContext } from "../../Components/Context/AuthContext/AuthContext";
 
 const HomeLayout = () => {
   return (
     <div>
       <header>
         <Navbar></Navbar>
-        <Banner></Banner>
       </header>
       <main className="container">
-        <TopScholarships></TopScholarships>
-        {/* <ScholarshipCard></ScholarshipCard> */}
         <Outlet></Outlet>
       </main>
 

@@ -23,7 +23,7 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error);
@@ -31,9 +31,9 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <div className="container">
       <div>
-        <div>
+        <div className="">
           <h2 className="text-3xl font-bold">Welcome Back!</h2>
           <p>Please Log in your account.</p>
 
@@ -67,7 +67,7 @@ const Login = () => {
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
-              <button className="btn btn-primary text-secondary mt-4 w-[320px]">
+              <button className="btn btn-primary text-white mt-4 w-[320px]">
                 Login
               </button>
             </fieldset>
