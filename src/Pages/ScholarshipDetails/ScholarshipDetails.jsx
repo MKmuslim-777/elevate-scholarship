@@ -1,7 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { useLoaderData, useParams } from "react-router";
-import useAxios from "../../Hooks/useAxios";
+import { useLoaderData } from "react-router";
 
 const ScholarshipDetails = () => {
   const data = useLoaderData();

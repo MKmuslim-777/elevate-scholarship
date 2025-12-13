@@ -160,12 +160,12 @@ const Navbar = () => {
                     </p>
                     <li>
                       <NavLink
-                        to={"/myComments"}
+                        to={"/dashboard"}
                         className={
                           "font-semibold text-secondary text-[18px] hover:bg-transparent"
                         }
                       >
-                        <GoComment /> My Comments
+                        <GoComment /> Dashboard
                       </NavLink>
                     </li>
                     <div className="flex gap-2.5">

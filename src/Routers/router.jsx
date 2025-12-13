@@ -6,6 +6,9 @@ import AuthLayout from "../Pages/Auth/AuthLayout/AuthLayout";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import ScholarshipDetails from "../Pages/ScholarshipDetails/ScholarshipDetails";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
+import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,20 @@ const router = createBrowserRouter([
       {
         path: "/auth/register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        Component: DashboardHome,
       },
     ],
   },
