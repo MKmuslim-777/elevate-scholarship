@@ -1,17 +1,19 @@
 import React from "react";
 import useAxios from "../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import ScholarshipCard from "../../Components/TopScholarships/ScholarshipCard";
 
 const AllScholarship = () => {
   const axios = useAxios();
 
-  const { data: scholarships = [] } = useQuery({
+  const { data: scholarships = [], refetch } = useQuery({
     queryKey: ["scholarships"],
     queryFn: async () => {
       const res = await axios.get("/scholarships");
       return res.data;
     },
   });
+  refetch();
 
   return (
     <div>
@@ -21,9 +23,10 @@ const AllScholarship = () => {
 
       <div className="grid grid-cols-4 gap-3.5">
         {scholarships.map((scholarship) => (
-          <div className="border rounded-2xl p-5">
-            <h1>{scholarship.scholarship_name}</h1>
-          </div>
+          <ScholarshipCard
+            key={scholarship._id}
+            scholarship={scholarship}
+          ></ScholarshipCard>
         ))}
       </div>
     </div>

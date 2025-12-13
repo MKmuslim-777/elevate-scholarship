@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <div>
       <Link to={"/"} className="text-xl">
-        Elevate
+        ScholarStream
       </Link>
     </div>
   );
