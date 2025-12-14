@@ -9,6 +9,8 @@ import ScholarshipDetails from "../Pages/ScholarshipDetails/ScholarshipDetails";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/DashboardHome/DashboardHome";
+import AddScholarship from "../Pages/Dashboard/AddScholarship/AddScholarship";
+import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: DashboardHome,
+      },
+      {
+        path: "addScholarship",
+        Component: AddScholarship,
+      },
+      {
+        path: "users-management",
+        Component: UserManagement,
       },
     ],
   },

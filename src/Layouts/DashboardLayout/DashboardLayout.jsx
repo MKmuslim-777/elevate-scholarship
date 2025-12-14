@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import Logo from "../../Shared/Logo/Logo";
+import { RiStickyNoteAddLine } from "react-icons/ri";
+import useRole from "../../Hooks/useRole";
+import { LuUserRoundPlus } from "react-icons/lu";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -12,7 +16,7 @@ const DashboardLayout = () => {
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
-            className="btn btn-square btn-ghost"
+            className="btn btn-square btn-ghost hover:bg-[#77CDFF] hover:border-none border border-[#77CDFF]"
           >
             {/* Sidebar toggle icon */}
             <svg
@@ -23,7 +27,7 @@ const DashboardLayout = () => {
               strokeWidth="2"
               fill="none"
               stroke="currentColor"
-              className="my-1.5 inline-block size-4 text-base-100"
+              className="my-1.5 inline-block size-4 text-base-100 "
             >
               <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
               <path d="M9 4v16"></path>
@@ -33,6 +37,7 @@ const DashboardLayout = () => {
           <div className="px-4"></div>
         </nav>
         {/* Page content here */}
+        <Outlet></Outlet>
         {/* <div className="p-4">Page Content</div> */}
       </div>
 
@@ -48,7 +53,7 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li className="text-white">
-              <Link
+              <NavLink
                 to={"/dashboard"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Dashboard Homepage"
@@ -68,7 +73,7 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
-              </Link>
+              </NavLink>
             </li>
 
             {/* List item */}
@@ -96,6 +101,37 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Settings</span>
               </button>
             </li>
+
+            {role === "admin" && (
+              <>
+                <li className="text-white">
+                  <NavLink
+                    to={"/dashboard/addScholarship"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-white"
+                    data-tip="Add Scholarship"
+                  >
+                    {/* Add New Scholarship icon */}
+                    <RiStickyNoteAddLine className="text-lg text-white" />
+                    <span className="is-drawer-close:hidden">
+                      Add Scholarship
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"/dashboard/users-management"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right mt-2.5"
+                    data-tip="Users Management"
+                  >
+                    <LuUserRoundPlus className="text-lg text-white" />
+
+                    <span className="is-drawer-close:hidden text-white">
+                      Users Management{" "}
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
