@@ -22,6 +22,8 @@ const SocialLogin = () => {
         console.log(studentInfo);
         navigate("/");
       });
+
+      console.log(result.user);
     });
   };
 

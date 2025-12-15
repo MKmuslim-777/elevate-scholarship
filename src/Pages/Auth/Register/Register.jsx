@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAxios from "../../../Hooks/useAxios";
 import useAuth from "../../../Hooks/useAuth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const {
@@ -15,6 +16,7 @@ const Register = () => {
   const navigate = useNavigate();
   const axios = useAxios();
   const { updateUserProfile, registerUser } = useAuth();
+  const [eye, setEye] = useState(false);
 
   const handleRegister = (data) => {
     const profileImg = data.photo[0];
@@ -100,18 +102,33 @@ const Register = () => {
               {errors.email?.type === "required" && (
                 <p className="text-red-500">Email is Required.</p>
               )}
-              <label className="label">Password</label>
-              <input
-                type="password"
-                {...register("password", {
-                  required: true,
-                  minLength: 6,
-                  pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                })}
-                className="input"
-                placeholder="Password"
-              />
+              <div className="relative">
+                <div className="flex flex-col">
+                  <label className="label">Password</label>
+                  <input
+                    type={eye ? "text" : "password"}
+                    {...register("password", {
+                      required: true,
+                      minLength: 6,
+                      pattern:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    })}
+                    className="input"
+                    placeholder="Password"
+                  />
+                </div>
+
+                <span
+                  onClick={() => setEye(!eye)}
+                  className="absolute top-8 left-73 z-10"
+                >
+                  {eye ? (
+                    <FaEyeSlash className="text-sm" />
+                  ) : (
+                    <FaEye className="text-sm" />
+                  )}
+                </span>
+              </div>
               {errors.password?.type === "required" && (
                 <p className="text-red-500">Password is Required.</p>
               )}

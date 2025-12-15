@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { FaHome } from "react-icons/fa";
+import { FaGraduationCap, FaHome } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
 import { MdPermContactCalendar } from "react-icons/md";
 import { Link, NavLink } from "react-router";
@@ -45,10 +45,7 @@ const Navbar = () => {
             "font-semibold text-primary text-[18px] hover:bg-transparent"
           }
         >
-          <img
-            src="https://img.icons8.com/material-outlined/24/property.png"
-            alt=""
-          />{" "}
+          <FaGraduationCap />
           All Scholarships
         </NavLink>
       </li>

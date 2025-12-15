@@ -1,63 +1,64 @@
 import React from "react";
-import { FaDollarSign, FaGraduationCap, FaMapMarkerAlt } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
+import { IoLocationOutline } from "react-icons/io5";
+
+import { FaMoneyBillWave } from "react-icons/fa";
 import { Link } from "react-router";
 
+// Assume you would receive the scholarship data as a prop named 'scholarship'
 const ScholarshipCard = ({ scholarship }) => {
+  console.log(scholarship);
+  const {
+    universityImage,
+    universityName,
+    subjectCategory,
+    applicationFees,
+    universityCity,
+    universityCountry,
+    _id,
+  } = scholarship;
+
   return (
-    <div className="card w-80 bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-      {/* 1. University Image - Positioned at the top */}
-      <figure className="px-10 pt-10">
-        <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/50 flex items-center justify-center">
-          <img
-            src={scholarship.university_image}
-            alt={`${scholarship.scholarship_name} logo`}
-            className="object-cover w-full h-full"
-          />
-        </div>
+    <div className="card w-96 bg-base-100 shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
+      <figure className="h-48 overflow-hidden">
+        <img
+          src={universityImage}
+          alt={`${universityName} building`}
+          className="w-full h-full object-cover"
+        />
       </figure>
 
-      <div className="card-body items-center text-center p-6">
-        {/* 2. University Name */}
-        <h2 className="card-title text-xl font-bold text-gray-800">
-          {scholarship.scholarship_name}
+      <div className="card-body p-6">
+        <h2 className="card-title text-xl font-bold text-gray-800 mb-2">
+          {universityName}
         </h2>
 
-        <div className="w-full space-y-3 mt-2">
-          {/* 3. Scholarship Category */}
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-            <FaGraduationCap className="text-primary text-lg" />
-            <span className="font-semibold">{"category"}</span>
-          </div>
+        <div className="badge badge-lg badge-primary text-white font-semibold mb-3">
+          {subjectCategory}
+        </div>
 
-          {/* 4. Location */}
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-            <FaMapMarkerAlt className="text-secondary text-lg" />
-            <span>{scholarship.location}</span>
-          </div>
-
-          <hr className="my-2 border-gray-100" />
-
-          {/* 5. Application Fees */}
-          <div className="flex items-center justify-center gap-2">
-            <FaDollarSign className="text-lg text-gray-500" />
-            <span className="text-base font-medium text-gray-700">
-              Application Fee:
+        <div className="grid grid-cols-2 gap-y-3 mb-4 text-sm text-gray-600">
+          <div className="flex items-center space-x-2">
+            <IoLocationOutline className="text-lg text-primary" />
+            <span>
+              {universityCity} {universityCountry}
             </span>
-            <div className={`badge ${"badgeColor"} text-primary font-bold p-3`}>
-              {scholarship.application_fees}
-            </div>
+          </div>
+
+          <div className="flex items-center space-x-2 justify-end">
+            <FaMoneyBillWave className="text-lg text-secondary" />
+            <span className="font-semibold">{applicationFees}</span>
+          </div>
+
+          <div className="col-span-2">
+            {/* You could add another piece of info here if needed */}
           </div>
         </div>
 
-        {/* 6. View Details Button */}
-        <div className="card-actions w-full mt-6">
+        <div className="card-actions justify-end mt-4">
           <Link
-            to={`/scholarships/details/${scholarship._id}`}
-            className="btn btn-primary w-full text-base-100"
-            onClick={"onViewDetails"}
+            to={`/scholarships/details/${_id}`}
+            className="btn btn-primary btn-block text-base-100"
           >
-            <IoEyeSharp className="text-xl" />
             View Details
           </Link>
         </div>

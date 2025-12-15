@@ -4,6 +4,7 @@ import Logo from "../../Shared/Logo/Logo";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import useRole from "../../Hooks/useRole";
 import { LuUserRoundPlus } from "react-icons/lu";
+import { FaGraduationCap } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -102,8 +103,23 @@ const DashboardLayout = () => {
               </button>
             </li>
 
+            {/* Admin role */}
+
             {role === "admin" && (
               <>
+                <li className="text-white">
+                  <NavLink
+                    to={"/dashboard/allScholarships"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-white"
+                    data-tip="All Scholarships"
+                  >
+                    {/* All Scholarship icon */}
+                    <FaGraduationCap className="text-lg text-white" />
+                    <span className="is-drawer-close:hidden">
+                      All Scholarships
+                    </span>
+                  </NavLink>
+                </li>
                 <li className="text-white">
                   <NavLink
                     to={"/dashboard/addScholarship"}

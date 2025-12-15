@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAxios from "../../../Hooks/useAxios";
+import { toast } from "react-toastify";
 
 const AddScholarship = () => {
   const {
@@ -11,13 +13,33 @@ const AddScholarship = () => {
   } = useForm();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const axios = useAxios();
 
   const handleScholarshipSubmit = (data) => {
-    console.log(data);
+    const scholarshipImg = data.universityImage[0];
+
+    const formData = new FormData();
+    formData.append("image", scholarshipImg);
+
+    const image_API_URL = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_image_host_key
+    }`;
+
+    axios.post(image_API_URL, formData).then((res) => {
+      const photoURL = res.data.data.url;
+      data.universityImage = photoURL;
+
+      axiosSecure.post("/scholarships", data).then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Scholarship is added!💚");
+          console.log("Scholarship is added");
+        }
+      });
+    });
   };
 
   return (
-    <div className="container">
+    <div className="container px-3">
       <h1 className="text-2xl md:text-5xl text-primary font-bold my-10">
         AddScholarship
       </h1>
@@ -119,7 +141,7 @@ const AddScholarship = () => {
           <fieldset className="fieldset ">
             <label className="label">Tuition Fees</label>
             <input
-              type="text"
+              type="number"
               className="input bg-transparent text-primary w-full"
               placeholder="Tuition Fees"
               {...register("tuitionFees", { required: true })}
@@ -132,7 +154,7 @@ const AddScholarship = () => {
           <fieldset className="fieldset ">
             <label className="label">Application Fees</label>
             <input
-              type="text"
+              type="number"
               className="input bg-transparent text-primary w-full"
               placeholder="Application Fees"
               {...register("applicationFees", { required: true })}
@@ -145,7 +167,7 @@ const AddScholarship = () => {
           <fieldset className="fieldset ">
             <label className="label">Service Charge</label>
             <input
-              type="text"
+              type="number"
               className="input bg-transparent text-primary w-full"
               placeholder="Service Charge"
               {...register("serviceCharge", { required: true })}
@@ -171,7 +193,7 @@ const AddScholarship = () => {
           <fieldset className="fieldset ">
             <label className="label">Posted User Email</label>
             <input
-              type="text"
+              type="email"
               className="input bg-transparent text-primary w-full"
               placeholder="Posted User Email"
               defaultValue={user.email}
@@ -198,7 +220,21 @@ const AddScholarship = () => {
             )}
           </fieldset>
         </div>
-        <button className="btn btn-primary text-white w-full ">Submit</button>
+        <fieldset className="fieldset ">
+          <label className="label">Scholarship Description</label>
+          <textarea
+            type="text"
+            className="input bg-transparent text-primary w-full h-20"
+            placeholder="Scholarship Description"
+            {...register("description", { required: true })}
+          />
+          {errors.applicationDeadline?.type === "required" && (
+            <p className="text-red-500">Scholarship Description is Required.</p>
+          )}
+        </fieldset>
+        <button className="btn btn-primary text-white w-full mt-2.5">
+          Submit
+        </button>
       </form>
     </div>
   );
