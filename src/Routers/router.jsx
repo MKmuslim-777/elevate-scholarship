@@ -13,6 +13,7 @@ import AddScholarship from "../Pages/Dashboard/AddScholarship/AddScholarship";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 import AllScholarshipsAdmin from "../Pages/Dashboard/AllScholarshipsAdmin/AllScholarshipsAdmin";
 import AdminRoute from "./AdminRoute/AdminRoute";
+import NotFound from "../Components/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);
 

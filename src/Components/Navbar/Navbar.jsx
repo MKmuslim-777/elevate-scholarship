@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { GoComment } from "react-icons/go";
 // import ThemeToggle from "../ToggleBtn/ThemeToggle";
 import useAuth from "../../Hooks/useAuth";
+import Logo from "../../Shared/Logo/Logo";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
@@ -92,7 +93,7 @@ const Navbar = () => {
                 <TiThMenu className=" hover:text-base-100" />
               </label>
             </div>
-            <div className="drawer-side">
+            <div className="drawer-side z-20">
               <label
                 htmlFor="my-drawer-1"
                 aria-label="close sidebar"
@@ -101,15 +102,9 @@ const Navbar = () => {
               <ul className="menu bg-primary min-h-full w-80 p-4">{links}</ul>
             </div>
           </div>
-          <Link to={"/"}>
-            <img
-              src={
-                "https://i.ibb.co.com/My9r9KYr/Gemini-Generated-Image-979ngy979ngy979n-1.png"
-              }
-              className="w-[190px] "
-              alt=""
-            />
-          </Link>
+          <div>
+            <Logo></Logo>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>

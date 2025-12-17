@@ -3,18 +3,27 @@ import useAxios from "../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import ScholarshipCard from "../../Components/TopScholarships/ScholarshipCard";
 import { FiSearch } from "react-icons/fi";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Loading from "../../Shared/Loading/Loading";
 
 const AllScholarship = () => {
   const axios = useAxios();
-  const [search, setSearch] = useState("");
+  const axiosSecure = useAxiosSecure();
+  const [filter, setFilter] = useState("");
 
-  const { data: scholarships = [], isLoading } = useQuery({
-    queryKey: ["scholarships", search],
+  const {
+    data: scholarships = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["users", filter],
     queryFn: async () => {
-      const res = await axios.get(`/scholarships?search=${search}`);
+      const res = await axiosSecure.get(`/scholarships?filter=${filter}`);
       return res.data;
     },
   });
+
+  refetch();
 
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">
@@ -38,9 +47,9 @@ const AllScholarship = () => {
             type="text"
             placeholder="Search by name, university or category..."
             className="input input-bordered w-full pl-12 h-14 rounded-full shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setFilter(e.target.value)}
           />
-          <button className="btn btn-primary absolute z-100 text-base-100 right-2 top-2 rounded-full px-6">
+          <button className="btn btn-primary absolute z-10 text-base-100 right-2 top-2 rounded-full px-6">
             Search
           </button>
         </div>
@@ -49,12 +58,13 @@ const AllScholarship = () => {
       {/* Scholarships Grid */}
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
-          <span className="loading loading-spinner loading-lg text-primary"></span>
+          {/* <span className="loading loading-spinner loading-lg text-primary"></span> */}
+          <Loading></Loading>
         </div>
       ) : (
         <>
           {scholarships.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {scholarships.map((scholarship) => (
                 <div
                   key={scholarship._id}

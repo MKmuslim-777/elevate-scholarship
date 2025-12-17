@@ -4,20 +4,29 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAxios from "../../../Hooks/useAxios";
 import { toast } from "react-toastify";
+import {
+  FaGraduationCap,
+  FaUniversity,
+  FaGlobe,
+  FaCity,
+  FaCalendarAlt,
+  FaDollarSign,
+  FaImage,
+} from "react-icons/fa";
 
 const AddScholarship = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const axios = useAxios();
 
-  const handleScholarshipSubmit = (data) => {
+  const handleScholarshipSubmit = async (data) => {
     const scholarshipImg = data.universityImage[0];
-
     const formData = new FormData();
     formData.append("image", scholarshipImg);
 
@@ -25,216 +34,252 @@ const AddScholarship = () => {
       import.meta.env.VITE_image_host_key
     }`;
 
-    axios.post(image_API_URL, formData).then((res) => {
+    try {
+      const res = await axios.post(image_API_URL, formData);
       const photoURL = res.data.data.url;
       data.universityImage = photoURL;
 
-      axiosSecure.post("/scholarships", data).then((res) => {
-        if (res.data.insertedId) {
-          toast.success("Scholarship is added!💚");
-          console.log("Scholarship is added");
-        }
-      });
-    });
+      // Convert numeric strings to numbers
+      data.tuitionFees = parseFloat(data.tuitionFees);
+      data.applicationFees = parseFloat(data.applicationFees);
+      data.serviceCharge = parseFloat(data.serviceCharge);
+      data.postedUserEmail = user.email;
+
+      const scholarshipRes = await axiosSecure.post("/scholarships", data);
+      if (scholarshipRes.data.insertedId) {
+        toast.success("Scholarship added successfully! 💚");
+        reset();
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
-    <div className="container px-3">
-      <h1 className="text-2xl md:text-5xl text-primary font-bold my-10">
-        AddScholarship
-      </h1>
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      {/* Page Header */}
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-8 flex flex-col md:flex-row justify-between items-center">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
+            Post a <span className="text-primary">Scholarship</span>
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Fill in the details below to add a new scholarship opportunity.
+          </p>
+        </div>
+        <FaGraduationCap className="text-6xl text-primary/20 hidden md:block" />
+      </div>
 
-      <form onSubmit={handleSubmit(handleScholarshipSubmit)}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+      <form
+        onSubmit={handleSubmit(handleScholarshipSubmit)}
+        className="space-y-6"
+      >
+        {/* Form Sections */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
           {/* Scholarship Name */}
-          <fieldset className="fieldset ">
-            <label className="label">Scholarship Name</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Scholarship Name"
-              {...register("scholarshipName", { required: true })}
-            />
-            {errors.scholarshipName?.type === "required" && (
-              <p className="text-red-500">Scholarship Name is Required.</p>
-            )}
-          </fieldset>
-          {/* University Name */}
-          <fieldset className="fieldset ">
-            <label className="label">University Name</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="University Name"
-              {...register("universityName", { required: true })}
-            />
-            {errors.universityName?.type === "required" && (
-              <p className="text-red-500">University Name is Required.</p>
-            )}
-          </fieldset>
-          {/* University Country */}
-          <fieldset className="fieldset ">
-            <label className="label">University Country</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="University Country"
-              {...register("universityCountry", { required: true })}
-            />
-            {errors.universityCountry?.type === "required" && (
-              <p className="text-red-500">University Country is Required.</p>
-            )}
-          </fieldset>
-          {/* University City */}
-          <fieldset className="fieldset ">
-            <label className="label">University City</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="University City"
-              {...register("universityCity", { required: true })}
-            />
-            {errors.universityCity?.type === "required" && (
-              <p className="text-red-500">University City is Required.</p>
-            )}
-          </fieldset>
-          {/* University World Rank */}
-          <fieldset className="fieldset ">
-            <label className="label">University World Rank</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="University World Rank"
-              {...register("universityWorldRank", { required: true })}
-            />
-            {errors.universityWorldRank?.type === "required" && (
-              <p className="text-red-500">university World Rank is Required.</p>
-            )}
-          </fieldset>
-          {/* Subject Category */}
-          <fieldset className="fieldset ">
-            <label className="label">Subject Category</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Subject category"
-              {...register("subjectCategory", { required: true })}
-            />
-            {errors.subjectCategory?.type === "required" && (
-              <p className="text-red-500">subject Category is Required.</p>
-            )}
-          </fieldset>
-          {/* Degree */}
-          <fieldset className="fieldset ">
-            <label className="label">Degree</label>
-            <input
-              type="text"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Degree"
-              {...register("degree", { required: true })}
-            />
-            {errors.degree?.type === "required" && (
-              <p className="text-red-500">Degree is Required.</p>
-            )}
-          </fieldset>
-          {/* Tuition fees */}
-          <fieldset className="fieldset ">
-            <label className="label">Tuition Fees</label>
-            <input
-              type="number"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Tuition Fees"
-              {...register("tuitionFees", { required: true })}
-            />
-            {errors.tuitionFees?.type === "required" && (
-              <p className="text-red-500">Tuition Fees is Required.</p>
-            )}
-          </fieldset>
-          {/* Application fees */}
-          <fieldset className="fieldset ">
-            <label className="label">Application Fees</label>
-            <input
-              type="number"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Application Fees"
-              {...register("applicationFees", { required: true })}
-            />
-            {errors.applicationFees?.type === "required" && (
-              <p className="text-red-500">Application Fees is Required.</p>
-            )}
-          </fieldset>
-          {/* Service Charge */}
-          <fieldset className="fieldset ">
-            <label className="label">Service Charge</label>
-            <input
-              type="number"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Service Charge"
-              {...register("serviceCharge", { required: true })}
-            />
-            {errors.serviceCharge?.type === "required" && (
-              <p className="text-red-500">Service Charge is Required.</p>
-            )}
-          </fieldset>
-          {/* Application Deadline */}
-          <fieldset className="fieldset ">
-            <label className="label">Application Deadline</label>
-            <input
-              type="date"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Application Deadline"
-              {...register("applicationDeadline", { required: true })}
-            />
-            {errors.applicationDeadline?.type === "required" && (
-              <p className="text-red-500">Application Dead line is Required.</p>
-            )}
-          </fieldset>
-          {/* Posted User Email */}
-          <fieldset className="fieldset ">
-            <label className="label">Posted User Email</label>
-            <input
-              type="email"
-              className="input bg-transparent text-primary w-full"
-              placeholder="Posted User Email"
-              defaultValue={user.email}
-              {...register("postedUserEmail", { required: true })}
-            />
-            {errors.postedUserEmail?.type === "required" && (
-              <p className="text-red-500">Posted User Email is Required.</p>
-            )}
-          </fieldset>
-
-          {/* University Image */}
-          <fieldset className="fieldset ">
-            <label className="label">University Image</label>
-            <input
-              type="file"
-              {...register("universityImage", { required: true })}
-              className="file-input "
-              placeholder="Upload University Image"
-            />
-            {errors.universityImage?.type === "required" && (
-              <p className="text-red-500">
-                University Image is must be Required.
+          <div className="form-control">
+            <label className="label font-semibold text-gray-700">
+              Scholarship Name
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                className={`input input-bordered w-full pl-10 focus:ring-2 focus:ring-primary/20 ${
+                  errors.scholarshipName ? "border-red-500" : ""
+                }`}
+                placeholder="e.g. Merit-Based Excellence Grant"
+                {...register("scholarshipName", {
+                  required: "Scholarship Name is required",
+                })}
+              />
+              <FaGraduationCap className="absolute left-3 top-4 text-gray-400" />
+            </div>
+            {errors.scholarshipName && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.scholarshipName.message}
               </p>
             )}
-          </fieldset>
+          </div>
+
+          {/* University Name */}
+          <div className="form-control">
+            <label className="label font-semibold text-gray-700">
+              University Name
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                className="input input-bordered w-full pl-10"
+                placeholder="e.g. Harvard University"
+                {...register("universityName", { required: true })}
+              />
+              <FaUniversity className="absolute left-3 top-4 text-gray-400" />
+            </div>
+          </div>
+
+          {/* University Country */}
+          <div className="form-control">
+            <label className="label font-semibold text-gray-700">Country</label>
+            <div className="relative">
+              <input
+                type="text"
+                className="input input-bordered w-full pl-10"
+                placeholder="United States"
+                {...register("universityCountry", { required: true })}
+              />
+              <FaGlobe className="absolute left-3 top-4 text-gray-400" />
+            </div>
+          </div>
+
+          {/* University City */}
+          <div className="form-control">
+            <label className="label font-semibold text-gray-700">City</label>
+            <div className="relative">
+              <input
+                type="text"
+                className="input input-bordered w-full pl-10"
+                placeholder="Cambridge"
+                {...register("universityCity", { required: true })}
+              />
+              <FaCity className="absolute left-3 top-4 text-gray-400" />
+            </div>
+          </div>
+
+          {/* World Rank, Category, Degree Grid */}
+          <div className="grid grid-cols-2 gap-4 col-span-1 md:col-span-2">
+            <div className="form-control">
+              <label className="label font-semibold text-gray-700">
+                University World Rank
+              </label>
+              <input
+                type="number"
+                className="input input-bordered w-full"
+                placeholder="Rank (e.g. 15)"
+                {...register("universityWorldRank", { required: true })}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label font-semibold text-gray-700">
+                Subject Category
+              </label>
+              <select
+                className="select select-bordered w-full font-normal"
+                {...register("subjectCategory", { required: true })}
+              >
+                <option value="Agriculture">Agriculture</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Business">Business</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Degree */}
+          <div className="form-control">
+            <label className="label font-semibold text-gray-700">Degree</label>
+            <select
+              className="select select-bordered w-full font-normal"
+              {...register("degree", { required: true })}
+            >
+              <option value="Bachelor">Bachelor</option>
+              <option value="Masters">Masters</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+
+          {/* Deadline */}
+          <div className="form-control">
+            <label className="label font-semibold text-gray-700">
+              Application Deadline
+            </label>
+            <div className="relative">
+              <input
+                type="date"
+                className="input input-bordered w-full pl-10"
+                {...register("applicationDeadline", { required: true })}
+              />
+              <FaCalendarAlt className="absolute left-3 top-4 text-gray-400" />
+            </div>
+          </div>
+
+          {/* Fees Grid */}
+          <div className="grid grid-cols-3 gap-3 col-span-1 md:col-span-2">
+            <div className="form-control">
+              <label className="label font-semibold text-gray-700">
+                Tuition ($)
+              </label>
+              <input
+                type="number"
+                className="input input-bordered w-full"
+                {...register("tuitionFees", { required: true })}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label font-semibold text-gray-700">
+                App Fee ($)
+              </label>
+              <input
+                type="number"
+                className="input input-bordered w-full"
+                {...register("applicationFees", { required: true })}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label font-semibold text-gray-700">
+                Service ($)
+              </label>
+              <input
+                type="number"
+                className="input input-bordered w-full"
+                {...register("serviceCharge", { required: true })}
+              />
+            </div>
+          </div>
+
+          {/* File Upload */}
+          <div className="form-control col-span-1 md:col-span-2">
+            <label className="label font-semibold text-gray-700">
+              University Image
+            </label>
+            <div className="flex items-center justify-center w-full">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <FaImage className="text-3xl text-gray-400 mb-2" />
+                  <p className="text-sm text-gray-500">
+                    Click to upload university banner
+                  </p>
+                </div>
+                <input
+                  type="file"
+                  className="hidden"
+                  {...register("universityImage", { required: true })}
+                />
+              </label>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="form-control col-span-1 md:col-span-2">
+            <label className="label font-semibold text-gray-700">
+              Scholarship Description
+            </label>
+            <textarea
+              className="textarea textarea-bordered h-32 text-base"
+              placeholder="Tell us more about this scholarship opportunity..."
+              {...register("description", { required: true })}
+            />
+          </div>
         </div>
-        <fieldset className="fieldset ">
-          <label className="label">Scholarship Description</label>
-          <textarea
-            type="text"
-            className="input bg-transparent text-primary w-full h-20"
-            placeholder="Scholarship Description"
-            {...register("description", { required: true })}
-          />
-          {errors.applicationDeadline?.type === "required" && (
-            <p className="text-red-500">Scholarship Description is Required.</p>
-          )}
-        </fieldset>
-        <button className="btn btn-primary text-white w-full mt-2.5">
-          Submit
-        </button>
+
+        {/* Submit Button */}
+        <div className="flex justify-end pt-4">
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg px-12 text-white shadow-lg shadow-primary/30"
+          >
+            Publish Scholarship
+          </button>
+        </div>
       </form>
     </div>
   );
