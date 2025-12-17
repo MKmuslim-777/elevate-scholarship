@@ -1,154 +1,148 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import Logo from "../../Shared/Logo/Logo";
-import { RiStickyNoteAddLine } from "react-icons/ri";
+import { RiStickyNoteAddLine, RiDashboardLine } from "react-icons/ri";
 import useRole from "../../Hooks/useRole";
-import { LuUserRoundPlus } from "react-icons/lu";
+import { LuUserRoundPlus, LuSettings } from "react-icons/lu";
 import { FaGraduationCap } from "react-icons/fa";
+import { HiMenuAlt2 } from "react-icons/hi";
+import useAuth from "../../Hooks/useAuth";
 
 const DashboardLayout = () => {
   const { role } = useRole();
+  const { user } = useAuth();
+
+  // Active Link Styling
+  const activeClass =
+    "bg-white/20 text-white font-bold border-r-4 border-white shadow-md";
+  const normalClass =
+    "text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300";
+
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open bg-slate-50 font-sans">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
+
+      {/* Content Area */}
+      <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <nav className="navbar w-full bg-primary">
-          <label
-            htmlFor="my-drawer-4"
-            aria-label="open sidebar"
-            className="btn btn-square btn-ghost hover:bg-[#77CDFF] hover:border-none border border-[#77CDFF]"
-          >
-            {/* Sidebar toggle icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2"
-              fill="none"
-              stroke="currentColor"
-              className="my-1.5 inline-block size-4 text-base-100 "
+        <nav className="navbar w-full bg-white shadow-sm border-b px-4 py-3 z-10 sticky top-0">
+          <div className="flex-none lg:hidden">
+            <label
+              htmlFor="my-drawer-4"
+              className="btn btn-ghost btn-square text-primary"
             >
-              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-              <path d="M9 4v16"></path>
-              <path d="M14 10l2 2l-2 2"></path>
-            </svg>
-          </label>
-          <div className="px-4"></div>
+              <HiMenuAlt2 className="text-2xl" />
+            </label>
+          </div>
+          <div className="flex-1">
+            <h2 className="text-xl font-semibold text-gray-700 hidden lg:block ml-2">
+              ScholarStream Dashboard
+            </h2>
+          </div>
         </nav>
+
         {/* Page content here */}
-        <Outlet></Outlet>
-        {/* <div className="p-4">Page Content</div> */}
+        <main className="p-6 md:p-10 flex-grow">
+          <Outlet />
+        </main>
       </div>
 
-      <div className="drawer-side is-drawer-close:overflow-visible">
-        <label
-          htmlFor="my-drawer-4"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <div className="flex min-h-full flex-col items-start bg-primary is-drawer-close:w-14 is-drawer-open:w-64">
-          <Logo></Logo>
-          {/* Sidebar content here */}
-          <ul className="menu w-full grow">
-            {/* List item */}
-            <li className="text-white">
+      {/* Sidebar Area */}
+      <div className="drawer-side z-20">
+        <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
+
+        <div className="flex min-h-full flex-col w-64 md:w-72 bg-primary text-white">
+          {/* Sidebar Logo Section */}
+          <div className="p-6 mb-4 flex justify-center border-b border-white/10">
+            <Logo />
+          </div>
+
+          {/* Sidebar Menu Items */}
+          <ul className="menu px-4 gap-2 grow">
+            <p className="text-[10px] uppercase tracking-widest text-white/50 font-bold ml-4 mb-2">
+              General
+            </p>
+
+            <li>
               <NavLink
-                to={"/dashboard"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Dashboard Homepage"
+                to="/dashboard"
+                end
+                className={({ isActive }) =>
+                  `${isActive ? activeClass : normalClass} p-3 rounded-lg`
+                }
               >
-                {/* Home icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4 text-white"
-                >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
+                <RiDashboardLine className="text-xl" />
+                <span>Overview</span>
               </NavLink>
             </li>
 
-            {/* List item */}
-            <li className="text-white">
-              <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Settings"
-              >
-                {/* Settings icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M20 7h-9"></path>
-                  <path d="M14 17H5"></path>
-                  <circle cx="17" cy="17" r="3"></circle>
-                  <circle cx="7" cy="7" r="3"></circle>
-                </svg>
-                <span className="is-drawer-close:hidden">Settings</span>
-              </button>
-            </li>
-
-            {/* Admin role */}
-
+            {/* Admin Specific Role Section */}
             {role === "admin" && (
               <>
-                <li className="text-white">
-                  <NavLink
-                    to={"/dashboard/allScholarships"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-white"
-                    data-tip="All Scholarships"
-                  >
-                    {/* All Scholarship icon */}
-                    <FaGraduationCap className="text-lg text-white" />
-                    <span className="is-drawer-close:hidden">
-                      All Scholarships
-                    </span>
-                  </NavLink>
-                </li>
-                <li className="text-white">
-                  <NavLink
-                    to={"/dashboard/addScholarship"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-white"
-                    data-tip="Add Scholarship"
-                  >
-                    {/* Add New Scholarship icon */}
-                    <RiStickyNoteAddLine className="text-lg text-white" />
-                    <span className="is-drawer-close:hidden">
-                      Add Scholarship
-                    </span>
-                  </NavLink>
-                </li>
+                <div className="divider before:bg-white/10 after:bg-white/10 my-4"></div>
+                <p className="text-[10px] uppercase tracking-widest text-white/50 font-bold ml-4 mb-2">
+                  Administration
+                </p>
+
                 <li>
                   <NavLink
-                    to={"/dashboard/users-management"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right mt-2.5"
-                    data-tip="Users Management"
+                    to="/dashboard/manageScholarship"
+                    className={({ isActive }) =>
+                      `${isActive ? activeClass : normalClass} p-3 rounded-lg`
+                    }
                   >
-                    <LuUserRoundPlus className="text-lg text-white" />
+                    <FaGraduationCap className="text-xl" />
+                    <span>Manage Scholarships</span>
+                  </NavLink>
+                </li>
 
-                    <span className="is-drawer-close:hidden text-white">
-                      Users Management{" "}
-                    </span>
+                <li>
+                  <NavLink
+                    to="/dashboard/addScholarship"
+                    className={({ isActive }) =>
+                      `${isActive ? activeClass : normalClass} p-3 rounded-lg`
+                    }
+                  >
+                    <RiStickyNoteAddLine className="text-xl" />
+                    <span>Add New Scholarship</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/users-management"
+                    className={({ isActive }) =>
+                      `${isActive ? activeClass : normalClass} p-3 rounded-lg`
+                    }
+                  >
+                    <LuUserRoundPlus className="text-xl" />
+                    <span>Manage Users</span>
                   </NavLink>
                 </li>
               </>
             )}
           </ul>
+
+          {/* Sidebar Footer Link */}
+          <div className="p-4 border-t border-white/10">
+            <div className="flex gap-3.5">
+              <img
+                src={user?.photoURL}
+                alt=""
+                className="rounded-full w-[50px]"
+              />
+              <div>
+                <p className="text-xl font-bold">{user?.displayName}</p>
+                <p className="text-base-200">{role}</p>
+              </div>
+            </div>
+            <Link
+              to="/"
+              className="btn btn-ghost btn-block text-white/80 hover:bg-white/10"
+            >
+              Log Out
+            </Link>
+          </div>
         </div>
       </div>
     </div>

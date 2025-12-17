@@ -117,74 +117,84 @@ const Navbar = () => {
 
         <div className="navbar-end">
           {/* <ThemeToggle></ThemeToggle> */}
-          <div className="">
-            <div className="dropdown dropdown-bottom dropdown-end ">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-outline btn-circle"
-              >
-                <img
-                  src={
-                    user
-                      ? user?.photoURL
-                      : "https://img.icons8.com/puffy-filled/32/user.png"
-                  }
-                  className="rounded-full w-[33px]"
-                  alt="User Image"
-                />
-              </div>
-              <ul
-                tabIndex="-1"
-                className="dropdown-content menu bg-base-100 rounded-box z-1 w-[270px] p-2 shadow-sm"
-              >
-                {user && (
-                  <div className="flex flex-col items-center">
+
+          {user ? (
+            <>
+              {" "}
+              <div className="">
+                <div className="dropdown dropdown-bottom dropdown-end ">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-outline btn-circle"
+                  >
                     <img
-                      src={
-                        user
-                          ? user?.photoURL
-                          : "https://img.icons8.com/puffy-filled/32/user.png"
-                      }
-                      className="rounded-full w-[30px] border border-secondary"
-                      alt="User Profile"
+                      src={user?.photoURL}
+                      className="rounded-full w-[33px]"
+                      alt="User Image"
                     />
-                    <p className=" text-secondary font-bold mt-2 ">
-                      {user?.displayName}
-                    </p>
-                    <p className=" text-secondary font-semibold">
-                      {user?.email}
-                    </p>
-                    <li>
-                      <NavLink
-                        to={"/dashboard"}
-                        className={
-                          "font-semibold text-secondary text-[18px] hover:bg-transparent"
-                        }
-                      >
-                        <GoComment /> Dashboard
-                      </NavLink>
-                    </li>
-                    <div className="flex gap-2.5">
-                      {/* <button className="btn btn-secondary text-base-100 mt-2">
+                  </div>
+                  <ul
+                    tabIndex="-1"
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-[270px] p-2 shadow-sm"
+                  >
+                    {user && (
+                      <div className="flex flex-col items-center">
+                        <img
+                          src={
+                            user
+                              ? user?.photoURL
+                              : "https://img.icons8.com/puffy-filled/32/user.png"
+                          }
+                          className="rounded-full w-[30px] border border-secondary"
+                          alt="User Profile"
+                        />
+                        <p className=" text-secondary font-bold mt-2 ">
+                          {user?.displayName}
+                        </p>
+                        <p className=" text-secondary font-semibold">
+                          {user?.email}
+                        </p>
+                        <li>
+                          <NavLink
+                            to={"/dashboard"}
+                            className={
+                              "font-semibold text-secondary text-[18px] hover:bg-transparent"
+                            }
+                          >
+                            <GoComment /> Dashboard
+                          </NavLink>
+                        </li>
+                        <div className="flex gap-2.5">
+                          {/* <button className="btn btn-secondary text-base-100 mt-2">
                         Edit
                       </button> */}
-                      <button
-                        onClick={handleSignOut}
-                        className="btn btn-outline w-full hover:bg-secondary hover:text-base-100 mt-2"
-                      >
-                        Sign Out
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </ul>
+                          <button
+                            onClick={handleSignOut}
+                            className="btn btn-outline w-full hover:bg-secondary hover:text-base-100 mt-2"
+                          >
+                            Sign Out
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </ul>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div>
+              <Link to={"/auth/login"} className="myBtn ml-3.5">
+                Sign In
+              </Link>
+              <Link
+                to={"/auth/register"}
+                className="btn btn-primary text-white ml-3.5"
+              >
+                Sign Up
+              </Link>
             </div>
-          </div>
-
-          <Link to={"/auth/login"} className="myBtn ml-3.5">
-            Sign In
-          </Link>
+          )}
         </div>
       </div>
     </div>

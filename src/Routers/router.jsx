@@ -11,6 +11,8 @@ import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 import AddScholarship from "../Pages/Dashboard/AddScholarship/AddScholarship";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
+import AllScholarshipsAdmin from "../Pages/Dashboard/AllScholarshipsAdmin/AllScholarshipsAdmin";
+import AdminRoute from "./AdminRoute/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -27,22 +29,26 @@ const router = createBrowserRouter([
       },
       {
         path: "/scholarships/details/:id",
-        Component: ScholarshipDetails,
+        element: (
+          <PrivateRoute>
+            <ScholarshipDetails></ScholarshipDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/scholarships/${params.id}`),
       },
     ],
   },
   {
-    path: "/auth",
+    path: "auth",
     Component: AuthLayout,
     children: [
       {
-        path: "/auth/login",
+        path: "login",
         Component: Login,
       },
       {
-        path: "/auth/register",
+        path: "register",
         Component: Register,
       },
     ],
@@ -61,11 +67,23 @@ const router = createBrowserRouter([
       },
       {
         path: "addScholarship",
-        Component: AddScholarship,
+        element: (
+          <AdminRoute>
+            <AddScholarship></AddScholarship>
+          </AdminRoute>
+        ),
       },
       {
         path: "users-management",
         Component: UserManagement,
+      },
+      {
+        path: "manageScholarship",
+        element: (
+          <AdminRoute>
+            <AllScholarshipsAdmin></AllScholarshipsAdmin>
+          </AdminRoute>
+        ),
       },
     ],
   },

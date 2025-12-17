@@ -164,7 +164,7 @@ const Register = () => {
                 Already Have an Account
                 <Link
                   state={location?.state}
-                  to={"/auth/login"}
+                  to={"/login"}
                   className={"text-blue-700 underline "}
                 >
                   Login

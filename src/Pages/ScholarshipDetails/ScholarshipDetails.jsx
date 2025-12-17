@@ -9,12 +9,11 @@ import {
 } from "react-icons/fa";
 import { GiRank2, GiNotebook } from "react-icons/gi";
 import { MdOutlineEmail } from "react-icons/md";
+import Reviews from "../../Components/Reviews/Reviews";
 
 const ScholarshipDetails = () => {
-  // Destructure the data loaded by the router
-  const data = useLoaderData();
+  const scholarshipData = useLoaderData();
 
-  // Destructure fields for easier use in the JSX
   const {
     universityImage,
     universityName,
@@ -22,7 +21,7 @@ const ScholarshipDetails = () => {
     applicationFees,
     universityCity,
     universityCountry,
-    _id, // Unused in display, but good to keep
+    _id,
     degree,
     tuitionFees,
     serviceCharge,
@@ -30,9 +29,8 @@ const ScholarshipDetails = () => {
     postedUserEmail,
     scholarshipName,
     universityWorldRank,
-    // Assuming you might have a 'description' or 'details' field for the main content
     description,
-  } = data;
+  } = scholarshipData;
 
   // Format the deadline date
   const formattedDeadline = new Date(applicationDeadline).toLocaleDateString(
@@ -151,6 +149,9 @@ const ScholarshipDetails = () => {
                 color="text-info"
               />
             </div>
+          </div>
+          <div>
+            <Reviews scholarshipData={scholarshipData}></Reviews>
           </div>
         </div>
 
