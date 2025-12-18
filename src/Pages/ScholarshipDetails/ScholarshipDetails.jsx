@@ -1,5 +1,5 @@
-import React from "react";
-import { useLoaderData } from "react-router";
+import React, { use } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import { IoLocationOutline, IoCalendarOutline } from "react-icons/io5";
 import {
   FaGraduationCap,
@@ -10,9 +10,16 @@ import {
 import { GiRank2, GiNotebook } from "react-icons/gi";
 import { MdOutlineEmail } from "react-icons/md";
 import Reviews from "../../Components/Reviews/Reviews";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ScholarshipDetails = () => {
   const scholarshipData = useLoaderData();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const {
     universityImage,
@@ -45,6 +52,68 @@ const ScholarshipDetails = () => {
   // Helper function to format currency
   const formatCurrency = (amount) =>
     amount === 0 ? "Free" : `$${amount.toLocaleString()}`;
+
+  const handlePayment = async (scholarshipData) => {
+    const paymentInfo = {
+      applicationFees: scholarshipData.applicationFees,
+      scholarshipId: scholarshipData._id,
+      studentEmail: user.email,
+      scholarshipName: scholarshipName,
+    };
+
+    const res = await axiosSecure.post("/checkout-session", paymentInfo);
+    // window.location.href = res.data.url;
+    window.location.assign(res.data.url);
+  };
+
+  const handleApply = (scholarshipData) => {
+    const applicationInfo = {
+      scholarshipId: _id,
+      userId: user._id,
+      userName: user.displayName,
+      userEmail: user.email,
+      universityName: scholarshipData.universityName,
+      scholarshipCategory: scholarshipData.subjectCategory,
+      degree: scholarshipData.degree,
+      applicationFees: scholarshipData.applicationFees,
+      serviceCharge: scholarshipData.serviceCharge,
+      universityAddress: { universityCity, universityCountry },
+      applicationStatus: "pending",
+      feedback: "",
+    };
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3b82f6",
+      cancelButtonColor: "#ef4444",
+      confirmButtonText: "Yes, Select it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post(`/applications`, applicationInfo).then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            navigate("/dashboard/my-applications");
+
+            Swal.fire(
+              "Selected for apply!",
+              "Your Application has been selected.",
+              "success"
+            );
+          } else if (res.data.message === "application exists") {
+            Swal.fire({
+              icon: "error",
+              title: "Already Selected",
+              text: "Never apply for some scholarship!",
+              footer: '<a href="#">Why do I have this issue?</a>',
+            });
+          }
+        });
+      }
+    });
+  };
 
   return (
     <div className="container mx-auto p-4 md:p-8">
@@ -166,9 +235,14 @@ const ScholarshipDetails = () => {
               The deadline is **{formattedDeadline}**. Don't miss this
               opportunity!
             </p>
-            <button className="btn bg-base-200 btn-lg w-full text-base-100">
+            {/* <Link to={`/application/${_id}`}> */}
+            <button
+              onClick={() => handleApply(scholarshipData)}
+              className="btn bg-base-200 btn-lg w-full text-base-100"
+            >
               Apply Now
             </button>
+            {/* </Link> */}
           </div>
 
           {/* Contact & Admin Card */}

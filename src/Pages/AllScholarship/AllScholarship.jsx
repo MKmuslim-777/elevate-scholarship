@@ -45,7 +45,7 @@ const AllScholarship = () => {
           </div>
           <input
             type="text"
-            placeholder="Search by name, university or category..."
+            placeholder="Search by name, university, scholarship or Degree..."
             className="input input-bordered w-full pl-12 h-14 rounded-full shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
             onChange={(e) => setFilter(e.target.value)}
           />

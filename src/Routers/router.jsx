@@ -14,6 +14,12 @@ import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 import AllScholarshipsAdmin from "../Pages/Dashboard/AllScholarshipsAdmin/AllScholarshipsAdmin";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import NotFound from "../Components/NotFound/NotFound";
+import Payment from "../Pages/Payment/Payment/Payment";
+import PaymentSuccess from "../Pages/Payment/PaymentSuccess/PaymentSuccess";
+import PaymentCancelled from "../Pages/Payment/PaymentCancelled/PaymentCancelled";
+import StudentRoute from "./StudentRoute/StudentRoute";
+import MyApplications from "../Pages/Dashboard/MyAppications/MyApplications";
+import MyComments from "../Pages/Dashboard/MyComments/MyComments";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +35,14 @@ const router = createBrowserRouter([
         Component: AllScholarship,
       },
       {
+        path: "application/:scholarshipId",
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/scholarships/details/:id",
         element: (
           <PrivateRoute>
@@ -37,6 +51,10 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/scholarships/${params.id}`),
+        // loader: ({ params }) =>
+        //   fetch(
+        //     `https://scholarship-stream-server-eleven.vercel.app/scholarships/${params.id}`
+        //   ),
       },
     ],
   },
@@ -79,11 +97,43 @@ const router = createBrowserRouter([
         Component: UserManagement,
       },
       {
+        path: "my-applications",
+        element: (
+          <StudentRoute>
+            <MyApplications></MyApplications>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "my-comments",
+        element: (
+          <StudentRoute>
+            <MyComments></MyComments>
+          </StudentRoute>
+        ),
+      },
+      {
         path: "manageScholarship",
         element: (
           <AdminRoute>
             <AllScholarshipsAdmin></AllScholarshipsAdmin>
           </AdminRoute>
+        ),
+      },
+      {
+        path: "payment-success",
+        element: (
+          <StudentRoute>
+            <PaymentSuccess></PaymentSuccess>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "payment-cancelled",
+        element: (
+          <StudentRoute>
+            <PaymentCancelled></PaymentCancelled>
+          </StudentRoute>
         ),
       },
     ],

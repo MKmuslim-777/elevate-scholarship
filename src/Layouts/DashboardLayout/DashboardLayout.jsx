@@ -7,13 +7,27 @@ import {
   RiLogoutBoxRLine,
 } from "react-icons/ri";
 import useRole from "../../Hooks/useRole";
-import { FaGraduationCap, FaUsersCog, FaHome } from "react-icons/fa";
+import { FaGraduationCap, FaUsersCog, FaHome, FaListAlt } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
+import { GoComment } from "react-icons/go";
 
 const DashboardLayout = () => {
   const { role } = useRole();
-  const { user, logOut } = useAuth();
+  const { user, signOutUser } = useAuth();
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then((result) => {
+        console.log(result);
+        toast.success("Successfully Sign Out !");
+      })
+      .catch((error) => {
+        toast.error(error);
+        console.log(error);
+      });
+  };
 
   const activeClass =
     "bg-white/20 text-white font-bold border-r-4 border-white shadow-inner";
@@ -146,6 +160,40 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
+
+            {role === "student" && (
+              <>
+                {/* My Applications Link */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-applications"
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl transition-all duration-200`
+                    }
+                  >
+                    <FaListAlt className="text-xl" />
+                    <span className="text-sm font-medium">My Applications</span>
+                  </NavLink>
+                </li>
+
+                {/* My Comments Link */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-comments"
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl transition-all duration-200`
+                    }
+                  >
+                    <GoComment className="text-xl" />
+                    <span className="text-sm font-medium">My Comments</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
 
           {/* Sidebar Footer User Card */}
@@ -166,7 +214,7 @@ const DashboardLayout = () => {
               </div>
             </div>
             <button
-              onClick={logOut}
+              onClick={handleSignOut}
               className="btn btn-sm btn-block bg-red-500/20 hover:bg-red-500 border-red-500/50 text-white border-none rounded-lg flex items-center gap-2 transition-all duration-300"
             >
               <RiLogoutBoxRLine className="text-lg" />

@@ -1,0 +1,27 @@
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
+const PaymentSuccess = () => {
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get(`successId`);
+  const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    if (sessionId) {
+      axiosSecure
+        .patch(`/payment-success?successId=${sessionId}`)
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+  }, [sessionId, axiosSecure]);
+
+  return (
+    <div>
+      <h2>Payment Success</h2>
+    </div>
+  );
+};
+
+export default PaymentSuccess;
