@@ -49,7 +49,7 @@ const AboutUs = () => {
               discover, track, and apply for funding that fits their unique
               profiles.
             </p>
-            <div className="stats shadow bg-base-200 w-full mt-4">
+            {/* <div className="stats shadow bg-base-200 w-full mt-4">
               <div className="stat place-items-center">
                 <div className="stat-title text-gray-500">Total Funding</div>
                 <div className="stat-value text-primary">$2.5M+</div>
@@ -60,16 +60,16 @@ const AboutUs = () => {
                 </div>
                 <div className="stat-value text-secondary">150+</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
 
       {/* Mission & Vision Cards */}
-      <section className=" py-16">
+      {/* <section className=" py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1 */}
+         
             <div className="card bg-white shadow-xl hover:-translate-y-2 transition-transform duration-300">
               <div className="card-body items-center text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
@@ -83,7 +83,7 @@ const AboutUs = () => {
               </div>
             </div>
 
-            {/* Card 2 */}
+           
             <div className="card bg-white shadow-xl hover:-translate-y-2 transition-transform duration-300">
               <div className="card-body items-center text-center">
                 <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
@@ -97,7 +97,7 @@ const AboutUs = () => {
               </div>
             </div>
 
-            {/* Card 3 */}
+            
             <div className="card bg-white shadow-xl hover:-translate-y-2 transition-transform duration-300">
               <div className="card-body items-center text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4">
@@ -112,33 +112,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 text-center container mx-auto px-4">
-        <div className="bg-primary rounded-3xl p-8 md:p-16 text-white shadow-2xl overflow-hidden relative">
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Ready to start your journey?
-            </h2>
-            <p className="text-xl mb-10 opacity-90 max-w-2xl mx-auto">
-              Join thousands of students who have already found their path to
-              success through ScholarStream.
-            </p>
-            <div className="flex justify-center gap-4">
-              <Link
-                to={"/all-scholarships"}
-                className="btn btn-secondary btn-lg border-none text-white px-10"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-          {/* Decorative Circle */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
-          <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/10 rounded-full -ml-10 -mb-10"></div>
-        </div>
-      </section>
+      </section> */}
     </div>
   );
 };
