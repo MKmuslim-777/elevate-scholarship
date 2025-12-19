@@ -172,7 +172,7 @@ const MyApplications = () => {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <p className="text-gray-500 text-xs italic line-clamp-2 max-w-[150px]">
+                      <p className="text-gray-500 text-xs  max-w-[150px]">
                         {app.feedback ? `"${app.feedback}"` : "No feedback"}
                       </p>
                     </td>

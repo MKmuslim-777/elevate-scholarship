@@ -18,6 +18,7 @@ const ManageApplied = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedApp, setSelectedApp] = useState(null);
+  const [inputFeedback, setInputFeedback] = useState(null);
 
   const {
     data: applications = [],
@@ -49,8 +50,6 @@ const ManageApplied = () => {
     }
   };
   const handleFeedbackSubmit = async (id, feedback) => {
-    console.log(id, feedback);
-
     const res = await axiosSecure.patch(`/applications/feedback/${id}`, {
       feedback,
     });
@@ -172,7 +171,7 @@ const ManageApplied = () => {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <p className="text-gray-500 text-xs italic line-clamp-2 max-w-[150px]">
+                      <p className="text-gray-500 text-xs italic  max-w-[150px]">
                         {app.feedback ? (
                           `"${app.feedback}"`
                         ) : (
@@ -304,6 +303,8 @@ const ManageApplied = () => {
         </div>
       </dialog>
 
+      {/* feedback modal */}
+
       <dialog
         id="feedback_modal"
         className="modal modal-bottom sm:modal-middle"
@@ -340,6 +341,7 @@ const ManageApplied = () => {
                 name="feedback"
                 className="textarea textarea-bordered h-32 w-full bg-gray-50 border-gray-200 focus:border-orange-500 focus:ring-orange-500 rounded-2xl p-4 text-gray-700 transition-all text-sm"
                 placeholder="Type the reason for approval or rejection here..."
+                onChange={(e) => setInputFeedback(e.target.value)}
               ></textarea>
 
               <div className="mt-4 p-4 bg-blue-50 rounded-xl flex items-start gap-3 border border-blue-100">
@@ -361,7 +363,9 @@ const ManageApplied = () => {
             </form>
 
             <button
-              onClick={() => handleFeedbackSubmit()}
+              onClick={() =>
+                handleFeedbackSubmit(selectedApp?._id, inputFeedback)
+              }
               className="btn flex-[2] bg-orange-600 hover:bg-orange-700 text-white border-none rounded-xl font-bold uppercase text-xs tracking-widest shadow-lg shadow-orange-200"
             >
               Send Feedback

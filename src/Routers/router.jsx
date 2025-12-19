@@ -53,12 +53,12 @@ const router = createBrowserRouter([
             <ScholarshipDetails></ScholarshipDetails>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/scholarships/${params.id}`),
         // loader: ({ params }) =>
-        //   fetch(
-        //     `https://scholarship-stream-server-eleven.vercel.app/scholarships/${params.id}`
-        //   ),
+        //   fetch(`http://localhost:3000/scholarships/${params.id}`),
+        loader: ({ params }) =>
+          fetch(
+            `https://scholarship-stream-server-eleven.vercel.app/scholarships/${params.id}`
+          ),
       },
     ],
   },
