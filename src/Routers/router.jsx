@@ -20,6 +20,10 @@ import PaymentCancelled from "../Pages/Payment/PaymentCancelled/PaymentCancelled
 import StudentRoute from "./StudentRoute/StudentRoute";
 import MyApplications from "../Pages/Dashboard/MyAppications/MyApplications";
 import MyComments from "../Pages/Dashboard/MyComments/MyComments";
+import ModeratorRoute from "./ModeratorRoute/ModeratorRoute";
+import AllReviews from "../Pages/Dashboard/AllReviews/AllReviews";
+import ManageApplied from "../Pages/Dashboard/ManageApplied/ManageApplied";
+import DashBoardHomeAuth from "../Pages/DashBoardHomeAuth/DashBoardHomeAuth";
 
 const router = createBrowserRouter([
   {
@@ -82,7 +86,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: DashboardHome,
+        element: <DashBoardHomeAuth></DashBoardHomeAuth>,
       },
       {
         path: "addScholarship",
@@ -134,6 +138,22 @@ const router = createBrowserRouter([
           <StudentRoute>
             <PaymentCancelled></PaymentCancelled>
           </StudentRoute>
+        ),
+      },
+      {
+        path: "all-reviews",
+        element: (
+          <ModeratorRoute>
+            <AllReviews></AllReviews>
+          </ModeratorRoute>
+        ),
+      },
+      {
+        path: "manage-applied-applications",
+        element: (
+          <ModeratorRoute>
+            <ManageApplied></ManageApplied>
+          </ModeratorRoute>
         ),
       },
     ],

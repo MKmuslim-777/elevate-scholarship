@@ -168,6 +168,7 @@ const AddScholarship = () => {
               >
                 <option value="Agriculture">Agriculture</option>
                 <option value="Engineering">Engineering</option>
+                <option value="Computer Science">Computer Science</option>
                 <option value="Doctor">Doctor</option>
                 <option value="Business">Business</option>
               </select>
@@ -242,7 +243,7 @@ const AddScholarship = () => {
               University Image
             </label>
             <div className="flex items-center justify-center w-full">
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all">
+              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                   <FaImage className="text-3xl text-gray-400 mb-2" />
                   <p className="text-sm text-gray-500">
@@ -264,7 +265,7 @@ const AddScholarship = () => {
               Scholarship Description
             </label>
             <textarea
-              className="textarea textarea-bordered h-32 text-base"
+              className="textarea textarea-bordered h-32 text-base md:w-[450px]"
               placeholder="Tell us more about this scholarship opportunity..."
               {...register("description", { required: true })}
             />

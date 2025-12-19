@@ -38,7 +38,7 @@ const UserManagement = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch(`/users/${user._id}/role`, { role: newRole })
+          .patch(`/users/${user.email}/role`, { role: newRole })
           .then((res) => {
             if (res.data.modifiedCount) {
               refetch();
@@ -63,7 +63,7 @@ const UserManagement = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/users/${user._id}`).then((res) => {
-          if (res.data.deletedCount) {
+          if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire("Deleted!", "User has been removed.", "success");
           }

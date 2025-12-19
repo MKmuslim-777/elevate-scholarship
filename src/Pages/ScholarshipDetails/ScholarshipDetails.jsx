@@ -53,19 +53,6 @@ const ScholarshipDetails = () => {
   const formatCurrency = (amount) =>
     amount === 0 ? "Free" : `$${amount.toLocaleString()}`;
 
-  const handlePayment = async (scholarshipData) => {
-    const paymentInfo = {
-      applicationFees: scholarshipData.applicationFees,
-      scholarshipId: scholarshipData._id,
-      studentEmail: user.email,
-      scholarshipName: scholarshipName,
-    };
-
-    const res = await axiosSecure.post("/checkout-session", paymentInfo);
-    // window.location.href = res.data.url;
-    window.location.assign(res.data.url);
-  };
-
   const handleApply = (scholarshipData) => {
     const applicationInfo = {
       scholarshipId: _id,
@@ -73,6 +60,7 @@ const ScholarshipDetails = () => {
       userName: user.displayName,
       userEmail: user.email,
       universityName: scholarshipData.universityName,
+      scholarshipName: scholarshipName,
       scholarshipCategory: scholarshipData.subjectCategory,
       degree: scholarshipData.degree,
       applicationFees: scholarshipData.applicationFees,

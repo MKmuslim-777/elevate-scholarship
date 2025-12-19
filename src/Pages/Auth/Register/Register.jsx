@@ -150,26 +150,27 @@ const Register = () => {
               <label className="block text-sm font-medium text-gray-700">
                 Profile Photo
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors">
+
+              <label className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors">
                 <div className="space-y-1 text-center">
                   <FaCloudUploadAlt className="mx-auto h-10 w-10 text-gray-400" />
                   <div className="flex text-sm text-gray-600">
-                    <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
-                      <span>Upload a file</span>
+                    <div className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                      <span className="ml-4.5">Upload a file</span>
                       <input
                         type="file"
                         {...register("photo", {
                           required: "Photo is required",
                         })}
-                        className="sr-only"
+                        className="sr-only "
                       />
-                    </label>
+                    </div>
                   </div>
                   <p className="text-xs text-gray-500">
                     PNG, JPG, GIF up to 10MB
                   </p>
                 </div>
-              </div>
+              </label>
               {errors.photo && (
                 <p className="text-red-500 text-xs mt-1">
                   {errors.photo.message}

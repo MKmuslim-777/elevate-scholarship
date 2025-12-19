@@ -194,6 +194,39 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
+            {role === "moderator" && (
+              <>
+                {/* My Applications Link */}
+                <li>
+                  <NavLink
+                    to="/dashboard/manage-applied-applications"
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
+                    }
+                  >
+                    <FaGraduationCap className="text-xl" />
+                    <span className="text-sm">Manage Applied Applications</span>
+                  </NavLink>
+                </li>
+
+                {/* My Comments Link */}
+                <li>
+                  <NavLink
+                    to="/dashboard/all-reviews"
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl transition-all duration-200`
+                    }
+                  >
+                    <GoComment className="text-xl" />
+                    <span className="text-sm font-medium">All Reviews</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
 
           {/* Sidebar Footer User Card */}

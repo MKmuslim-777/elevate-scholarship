@@ -58,6 +58,20 @@ const MyApplications = () => {
     });
   };
 
+  const handlePayment = async (app) => {
+    console.log(app);
+    const paymentInfo = {
+      applicationFees: app.applicationFees,
+      scholarshipId: app._id,
+      studentEmail: user.email,
+      scholarshipName: app.scholarshipName,
+    };
+
+    const res = await axiosSecure.post("/checkout-session", paymentInfo);
+    // window.location.href = res.data.url;
+    window.location.assign(res.data.url);
+  };
+
   const getStatusStyle = (status) => {
     switch (status?.toLowerCase()) {
       case "pending":
@@ -176,7 +190,10 @@ const MyApplications = () => {
                     </td>
                     <td className="py-4 px-6 text-center">
                       {app.paymentStatus === "unpaid" ? (
-                        <button className="flex items-center gap-2 mx-auto px-3 py-1.5 bg-gray-900 text-white text-[10px] font-bold uppercase rounded-lg hover:bg-primary transition-all">
+                        <button
+                          onClick={() => handlePayment(app)}
+                          className="flex items-center gap-2 mx-auto px-3 py-1.5 bg-gray-900 text-white text-[10px] font-bold uppercase rounded-lg hover:bg-primary transition-all"
+                        >
                           <FaCreditCard /> Pay Now
                         </button>
                       ) : (
@@ -239,7 +256,7 @@ const MyApplications = () => {
                 <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">
                   Scholarship Name
                 </label>
-                <p className="text-gray-800 font-bold mt-1">
+                <p className="text-gray-800 font-semibold mt-1">
                   {selectedApp?.universityName || "N/A"}
                 </p>
               </div>
@@ -247,7 +264,7 @@ const MyApplications = () => {
                 <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">
                   Subject Category
                 </label>
-                <p className="text-gray-800 font-bold mt-1">
+                <p className="text-gray-800 font-semibold mt-1">
                   {selectedApp?.scholarshipCategory || "N/A"}
                 </p>
               </div>
@@ -255,7 +272,7 @@ const MyApplications = () => {
                 <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">
                   University
                 </label>
-                <p className="text-gray-800 font-bold mt-1">
+                <p className="text-gray-800 font-semibold mt-1">
                   {selectedApp?.universityName}
                 </p>
               </div>
@@ -263,7 +280,7 @@ const MyApplications = () => {
                 <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">
                   Applied Date
                 </label>
-                <p className="text-gray-800 font-bold mt-1">
+                <p className="text-gray-800 font-semibold mt-1">
                   {new Date().toLocaleDateString()}
                 </p>
               </div>

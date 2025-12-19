@@ -28,7 +28,7 @@ const AboutUs = () => {
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-72 h-72 bg-secondary/20 rounded-full blur-3xl"></div>
               <img
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="https://i.ibb.co.com/qF5vmq8z/photo-1523240795612-9a054b0db644.avif"
                 alt="Students studying"
                 className="relative rounded-2xl shadow-2xl z-10 w-full object-cover"
               />
