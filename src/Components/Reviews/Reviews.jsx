@@ -30,10 +30,10 @@ const Reviews = ({ scholarshipData }) => {
     // serviceCharge,
     // applicationDeadline,
     // postedUserEmail,
-    // scholarshipName,
+    scholarshipName,
     // universityWorldRank,
     // universityImage,
-    // universityName,
+    universityName,
     // subjectCategory,
     // applicationFees,
     // universityCity,
@@ -71,6 +71,8 @@ const Reviews = ({ scholarshipData }) => {
       reviewerName: user.displayName,
       reviewerComment: data.reviewerComment,
       scholarshipId: _id,
+      universityName: universityName,
+      scholarshipName: scholarshipName,
     };
 
     console.log(reviewsInfo);

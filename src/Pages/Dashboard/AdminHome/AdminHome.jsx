@@ -9,9 +9,46 @@ import {
   FaBell,
   FaCalendarAlt,
 } from "react-icons/fa";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../Shared/Loading/Loading";
 
 const AdminHome = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  // For total students
+  const {
+    studentLoading,
+    data: students = [],
+    refetch,
+  } = useQuery({
+    queryKey: ["students"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/total-students?role=student`);
+      return res.data;
+    },
+  });
+  const { applicationLoading, data: applications = [] } = useQuery({
+    queryKey: ["applications"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/total-applications`);
+      return res.data;
+    },
+  });
+  const { scholarshipLoading, data: scholarships = [] } = useQuery({
+    queryKey: ["scholarships"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/scholarships`);
+      return res.data;
+    },
+  });
+
+  if (studentLoading || applicationLoading || scholarshipLoading) {
+    return <Loading></Loading>;
+  }
+
+  refetch();
 
   return (
     <div className="p-8 bg-[#F8FAFC] min-h-screen font-sans">
@@ -45,35 +82,35 @@ const AdminHome = () => {
       </div>
 
       {/* Grid for Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         <StatCard
           label="Total Students"
-          value="4,820"
+          value={students.length}
           icon={<FaUsers />}
           color="blue"
-          percent="12%"
+          // percent="12%"
         />
         <StatCard
           label="Total Applications"
-          value="1,245"
+          value={applications.length}
           icon={<FaFileUpload />}
           color="purple"
-          percent="8%"
+          // percent="8%"
         />
         <StatCard
           label="Active Scholarships"
-          value="86"
+          value={scholarships.length}
           icon={<FaUniversity />}
           color="orange"
-          percent="5%"
+          // percent="5%"
         />
-        <StatCard
+        {/* <StatCard
           label="Total Revenue"
           value="$24,500"
           icon={<FaWallet />}
           color="emerald"
-          percent="15%"
-        />
+          // percent="15%"
+        /> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
@@ -12,9 +12,27 @@ import {
 import Swal from "sweetalert2";
 import Loading from "../../../Shared/Loading/Loading";
 
+import { MdOutlineRateReview } from "react-icons/md";
+import { toast } from "react-toastify";
+
 const MyComments = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const [rating, setRating] = useState(0);
+
+  const StarInput = ({ selected, onClick }) => (
+    <svg
+      onClick={onClick}
+      className={`w-8 h-8 cursor-pointer transition duration-150 ${
+        selected ? "text-yellow-500" : "text-gray-300 hover:text-yellow-400"
+      }`}
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.09 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+  );
 
   const {
     data: reviews = [],
@@ -45,6 +63,32 @@ const MyComments = () => {
             Swal.fire("Deleted!", "Your comment has been removed.", "success");
           }
         });
+      }
+    });
+  };
+
+  const handleEditCommentSubmit = (review) => {
+    const reviewsInfo = {
+      ratings: reviews.rating,
+      reviewerPhoto: user.photoURL,
+      reviewerEmail: user.email,
+      reviewerName: user.displayName,
+      reviewerComment: review.reviewerComment,
+      scholarshipId: review.scholarshipId,
+      universityName: review.universityName,
+      scholarshipName: review.scholarshipName,
+    };
+
+    axiosSecure.patch(`/reviews/${review._id}`, reviewsInfo).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        toast.success("Review updated successfully! 💚");
+
+        const modal = document.getElementById("edit_comment_modal");
+        if (modal) {
+          modal.close();
+        }
+      } else {
+        toast.error("No changes made.");
       }
     });
   };
@@ -145,6 +189,11 @@ const MyComments = () => {
                         {/* Edit Button */}
                         <button
                           title="Edit Comment"
+                          onClick={() =>
+                            document
+                              .getElementById("edit_comment_modal")
+                              .showModal()
+                          }
                           className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
                         >
                           <FaEdit size={14} />
@@ -159,6 +208,114 @@ const MyComments = () => {
                           <FaTrashAlt size={14} />
                         </button>
                       </div>
+
+                      <dialog
+                        id="edit_comment_modal"
+                        className="modal modal-bottom sm:modal-middle"
+                      >
+                        <div className="modal-box p-6 bg-base-100 shadow-2xl">
+                          <h3 className="font-bold text-2xl text-primary mb-4 border-b pb-2 flex items-center">
+                            {/* Review Icon */}
+                            <MdOutlineRateReview className="mr-2" />
+                            Submit Your Scholarship Review
+                          </h3>
+
+                          <p className="text-sm text-gray-500 mb-6">
+                            Share your experience to help future applicants!
+                          </p>
+
+                          {/* --- REVIEW FORM DESIGN START --- */}
+                          <form
+                            method="dialog"
+                            onSubmit={() => handleEditCommentSubmit(review)}
+                            className="space-y-4"
+                          >
+                            {/* 1. Rating Field */}
+                            <div className="form-control">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                  Your Rating:
+                                </label>
+                                <div className="flex space-x-1">
+                                  {[1, 2, 3, 4, 5].map((starValue) => (
+                                    <StarInput
+                                      key={starValue}
+                                      selected={starValue <= rating}
+                                      onClick={() => setRating(starValue)}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Your Name */}
+                            <div className="form-control">
+                              <label className="label">
+                                <span className="label-text font-semibold text-gray-700">
+                                  Your Name
+                                </span>
+                              </label>
+                              <input
+                                type="text"
+                                className="input input-bordered w-full"
+                                placeholder="Your Name"
+                                defaultValue={user?.displayName}
+                                readOnly
+                              />
+                            </div>
+                            {/* Email */}
+                            <div className="form-control">
+                              <label className="label">
+                                <span className="label-text font-semibold text-gray-700">
+                                  Email
+                                </span>
+                              </label>
+                              <input
+                                type="text"
+                                className="input input-bordered w-full"
+                                placeholder="Email"
+                                defaultValue={user?.email}
+                                readOnly
+                              />
+                            </div>
+                            {/* Comment */}
+                            <div className="form-control">
+                              <label className="label">
+                                <span className="label-text font-semibold text-gray-700">
+                                  Your Experience
+                                </span>
+                              </label>
+                              <textarea
+                                type="text"
+                                className="input input-bordered w-full h-20"
+                                placeholder="Share your experience..."
+                                defaultValue={review?.reviewerComment}
+                              />
+                            </div>
+
+                            {/* --- FORM ACTIONS --- */}
+                            <div className="modal-action mt-6 flex justify-end gap-3">
+                              {/* Close Button - Closes the modal without submitting */}
+                              <button
+                                type="button"
+                                className="btn btn-ghost"
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit_comment_modal")
+                                    .close()
+                                }
+                              >
+                                Cancel
+                              </button>
+
+                              {/* Submit Button - Closes the modal (using method="dialog") and implies submission */}
+                              <button type="submit" className="btn btn-success">
+                                Post Review
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </dialog>
                     </td>
                   </tr>
                 ))
