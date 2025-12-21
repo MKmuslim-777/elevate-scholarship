@@ -1,4 +1,3 @@
-import React, { use } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
 import { IoLocationOutline, IoCalendarOutline } from "react-icons/io5";
 import {
@@ -12,14 +11,23 @@ import { MdOutlineEmail } from "react-icons/md";
 import Reviews from "../../Components/Reviews/Reviews";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+// import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Shared/Loading/Loading";
 
 const ScholarshipDetails = () => {
   const scholarshipData = useLoaderData();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+
+  // const { isLoading, data: scholarshipData = [] } = useQuery({
+  //   queryKey: ["scholarship"],
+  //   queryFn: async () => {
+  //     const res = await axiosSecure.get(`/scholarships/:id`);
+  //     return res.data;
+  //   },
+  // });
 
   const {
     universityImage,
@@ -51,7 +59,21 @@ const ScholarshipDetails = () => {
 
   // Helper function to format currency
   const formatCurrency = (amount) =>
-    amount === 0 ? "Free" : `$${amount.toLocaleString()}`;
+    amount === 0 ? "Free" : `$${amount?.toLocaleString()}`;
+
+  const handlePayment = async (app) => {
+    console.log(app);
+    const paymentInfo = {
+      applicationFees: app.applicationFees,
+      scholarshipId: app._id,
+      studentEmail: user.email,
+      scholarshipName: app.scholarshipName,
+    };
+
+    const res = await axiosSecure.post("/checkout-session", paymentInfo);
+    // window.location.href = res.data.url;
+    window.location.assign(res.data.url);
+  };
 
   const handleApply = (scholarshipData) => {
     const applicationInfo = {
@@ -90,6 +112,7 @@ const ScholarshipDetails = () => {
               "Your Application has been selected.",
               "success"
             );
+            handlePayment(applicationInfo);
           } else if (res.data.message === "application exists") {
             Swal.fire({
               icon: "error",
@@ -102,6 +125,10 @@ const ScholarshipDetails = () => {
       }
     });
   };
+
+  // if (isLoading) {
+  //   return <Loading></Loading>;
+  // }
 
   return (
     <div className="container mx-auto p-4 md:p-8">

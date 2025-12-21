@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import Loading from "../../Shared/Loading/Loading";
 import AdminHome from "../Dashboard/AdminHome/AdminHome";
+import ModeratorHome from "../Dashboard/ModeratorHome/ModeratorHome";
 
 const DashBoardHomeAuth = ({ children }) => {
   const { user, loading } = useAuth();
@@ -14,6 +15,8 @@ const DashBoardHomeAuth = ({ children }) => {
 
   if (role === "admin") {
     return <AdminHome></AdminHome>;
+  } else if (role === "moderator") {
+    return <ModeratorHome></ModeratorHome>;
   }
 
   return children;

@@ -24,6 +24,7 @@ import ModeratorRoute from "./ModeratorRoute/ModeratorRoute";
 import AllReviews from "../Pages/Dashboard/AllReviews/AllReviews";
 import ManageApplied from "../Pages/Dashboard/ManageApplied/ManageApplied";
 import DashBoardHomeAuth from "../Pages/DashBoardHomeAuth/DashBoardHomeAuth";
+import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -98,7 +99,15 @@ const router = createBrowserRouter([
       },
       {
         path: "users-management",
-        Component: UserManagement,
+        element: (
+          <AdminRoute>
+            <UserManagement></UserManagement>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "my-profile",
+        Component: MyProfile,
       },
       {
         path: "my-applications",

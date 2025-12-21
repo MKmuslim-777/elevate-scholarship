@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router"; // or react-router-dom
 import Logo from "../../Shared/Logo/Logo";
 import {
   RiStickyNoteAddLine,
@@ -8,6 +8,7 @@ import {
 } from "react-icons/ri";
 import useRole from "../../Hooks/useRole";
 import { FaGraduationCap, FaUsersCog, FaHome, FaListAlt } from "react-icons/fa";
+import { FiUser } from "react-icons/fi"; // Added icon for Profile
 import { HiMenuAlt2 } from "react-icons/hi";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
@@ -19,13 +20,11 @@ const DashboardLayout = () => {
 
   const handleSignOut = () => {
     signOutUser()
-      .then((result) => {
-        console.log(result);
-        toast.success("Successfully Sign Out !");
+      .then(() => {
+        toast.success("Successfully Signed Out!");
       })
       .catch((error) => {
-        toast.error(error);
-        console.log(error);
+        toast.error(error.message);
       });
   };
 
@@ -38,7 +37,6 @@ const DashboardLayout = () => {
     <div className="drawer lg:drawer-open bg-[#f8fafc] font-sans">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
-      {/* Content Area */}
       <div className="drawer-content flex flex-col">
         {/* Top Navbar */}
         <nav className="navbar w-full bg-white shadow-sm border-b px-6 py-4 z-10 sticky top-0">
@@ -63,14 +61,14 @@ const DashboardLayout = () => {
           <div className="flex-none gap-2">
             <Link
               to="/"
-              className="btn btn-ghost btn-sm text-gray-500 gap-2 hover:text-base-100"
+              className="btn btn-ghost btn-sm text-gray-500 gap-2 hover:text-primary transition-colors"
             >
               <FaHome /> Home
             </Link>
           </div>
         </nav>
 
-        {/* Page content here */}
+        {/* Page content */}
         <main className="p-4 md:p-8 lg:p-10 min-h-screen">
           <div className="max-w-7xl mx-auto">
             <Outlet />
@@ -83,40 +81,35 @@ const DashboardLayout = () => {
         <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
         <div className="flex min-h-full flex-col w-64 md:w-72 bg-primary text-white shadow-2xl">
-          {/* Sidebar Logo Section */}
           <div className="p-8 flex justify-center border-b border-white/5 bg-black/5">
             <Logo />
           </div>
 
-          {/* Sidebar Menu Items */}
           <ul className="menu p-4 gap-1 grow mt-4">
-            <p className="text-[11px] uppercase tracking-[2px] text-white/40 font-black ml-4 mb-3">
-              Main Menu
-            </p>
-
-            <li>
-              <NavLink
-                to="/dashboard"
-                end
-                className={({ isActive }) =>
-                  `${
-                    isActive ? activeClass : normalClass
-                  } flex items-center gap-4 py-3.5 px-5 rounded-xl`
-                }
-              >
-                <RiDashboardLine className="text-xl" />
-                <span className="text-sm">Overview</span>
-              </NavLink>
-            </li>
-
             {/* Admin Specific Role Section */}
             {role === "admin" && (
               <>
                 <div className="divider before:bg-white/5 after:bg-white/5 my-6 opacity-50 px-4"></div>
                 <p className="text-[11px] uppercase tracking-[2px] text-white/40 font-black ml-4 mb-3">
+                  Main Menu
+                </p>
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
+                    }
+                  >
+                    <RiDashboardLine className="text-xl" />
+                    <span className="text-sm">Overview</span>
+                  </NavLink>
+                </li>
+                <p className="text-[11px] uppercase tracking-[2px] text-white/40 font-black ml-4 mb-3">
                   Admin Tools
                 </p>
-
                 <li>
                   <NavLink
                     to="/dashboard/manageScholarship"
@@ -130,7 +123,6 @@ const DashboardLayout = () => {
                     <span className="text-sm">Manage Scholarships</span>
                   </NavLink>
                 </li>
-
                 <li>
                   <NavLink
                     to="/dashboard/addScholarship"
@@ -144,7 +136,6 @@ const DashboardLayout = () => {
                     <span className="text-sm">Post Scholarship</span>
                   </NavLink>
                 </li>
-
                 <li>
                   <NavLink
                     to="/dashboard/users-management"
@@ -161,31 +152,44 @@ const DashboardLayout = () => {
               </>
             )}
 
+            {/* Student Specific Role Section */}
             {role === "student" && (
               <>
-                {/* My Applications Link */}
+                <div className="divider before:bg-white/5 after:bg-white/5 my-6 opacity-50 px-4"></div>
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
+                    }
+                  >
+                    <RiDashboardLine className="text-xl" />
+                    <span className="text-sm">Overview</span>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     to="/dashboard/my-applications"
                     className={({ isActive }) =>
                       `${
                         isActive ? activeClass : normalClass
-                      } flex items-center gap-4 py-3.5 px-5 rounded-xl transition-all duration-200`
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
                     }
                   >
                     <FaListAlt className="text-xl" />
                     <span className="text-sm font-medium">My Applications</span>
                   </NavLink>
                 </li>
-
-                {/* My Comments Link */}
                 <li>
                   <NavLink
                     to="/dashboard/my-comments"
                     className={({ isActive }) =>
                       `${
                         isActive ? activeClass : normalClass
-                      } flex items-center gap-4 py-3.5 px-5 rounded-xl transition-all duration-200`
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
                     }
                   >
                     <GoComment className="text-xl" />
@@ -194,9 +198,28 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
+
+            {/* Moderator Specific Role Section */}
             {role === "moderator" && (
               <>
-                {/* My Applications Link */}
+                <div className="divider before:bg-white/5 after:bg-white/5 my-6 opacity-50 px-4"></div>
+                <p className="text-[11px] uppercase tracking-[2px] text-white/40 font-black ml-4 mb-3">
+                  Main Menu
+                </p>
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? activeClass : normalClass
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
+                    }
+                  >
+                    <RiDashboardLine className="text-xl" />
+                    <span className="text-sm">Overview</span>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     to="/dashboard/manage-applied-applications"
@@ -210,15 +233,13 @@ const DashboardLayout = () => {
                     <span className="text-sm">Manage Applied Applications</span>
                   </NavLink>
                 </li>
-
-                {/* My Comments Link */}
                 <li>
                   <NavLink
                     to="/dashboard/all-reviews"
                     className={({ isActive }) =>
                       `${
                         isActive ? activeClass : normalClass
-                      } flex items-center gap-4 py-3.5 px-5 rounded-xl transition-all duration-200`
+                      } flex items-center gap-4 py-3.5 px-5 rounded-xl`
                     }
                   >
                     <GoComment className="text-xl" />
@@ -227,6 +248,20 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
+
+            <li>
+              <NavLink
+                to="/dashboard/my-profile"
+                className={({ isActive }) =>
+                  `${
+                    isActive ? activeClass : normalClass
+                  } flex items-center gap-4 py-3.5 px-5 rounded-xl`
+                }
+              >
+                <FiUser className="text-xl" />
+                <span className="text-sm">My Profile</span>
+              </NavLink>
+            </li>
           </ul>
 
           {/* Sidebar Footer User Card */}
@@ -248,7 +283,7 @@ const DashboardLayout = () => {
             </div>
             <button
               onClick={handleSignOut}
-              className="btn btn-sm btn-block bg-red-500/20 hover:bg-red-500 border-red-500/50 text-white border-none rounded-lg flex items-center gap-2 transition-all duration-300"
+              className="btn btn-sm btn-block bg-red-500/20 hover:bg-red-500 border-none text-white rounded-lg flex items-center gap-2 transition-all duration-300"
             >
               <RiLogoutBoxRLine className="text-lg" />
               Log Out
