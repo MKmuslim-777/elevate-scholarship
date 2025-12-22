@@ -75,56 +75,55 @@ const ScholarshipDetails = () => {
   //   window.location.assign(res.data.url);
   // };
 
-  // const handleApply = (scholarshipData) => {
-  //   const applicationInfo = {
-  //     scholarshipId: _id,
-  //     userId: user._id,
-  //     userName: user.displayName,
-  //     userEmail: user.email,
-  //     universityName: scholarshipData.universityName,
-  //     scholarshipName: scholarshipName,
-  //     scholarshipCategory: scholarshipData.subjectCategory,
-  //     degree: scholarshipData.degree,
-  //     applicationFees: scholarshipData.applicationFees,
-  //     serviceCharge: scholarshipData.serviceCharge,
-  //     universityAddress: { universityCity, universityCountry },
-  //     applicationStatus: "pending",
-  //     feedback: "",
-  //   };
+  const handleApply = (scholarshipData) => {
+    const applicationInfo = {
+      scholarshipId: _id,
+      userId: user._id,
+      userName: user.displayName,
+      userEmail: user.email,
+      universityName: scholarshipData.universityName,
+      scholarshipName: scholarshipName,
+      scholarshipCategory: scholarshipData.subjectCategory,
+      degree: scholarshipData.degree,
+      applicationFees: scholarshipData.applicationFees,
+      serviceCharge: scholarshipData.serviceCharge,
+      universityAddress: { universityCity, universityCountry },
+      applicationStatus: "pending",
+      feedback: "",
+    };
 
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3b82f6",
-  //     cancelButtonColor: "#ef4444",
-  //     confirmButtonText: "Yes, Select it!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axiosSecure.post(`/applications`, applicationInfo).then((res) => {
-  //         console.log(res.data);
-  //         if (res.data.insertedId) {
-  //           navigate("/dashboard/my-applications");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3b82f6",
+      cancelButtonColor: "#ef4444",
+      confirmButtonText: "Yes, Select it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post(`/applications`, applicationInfo).then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            navigate("/dashboard/my-applications");
 
-  //           Swal.fire(
-  //             "Selected for apply!",
-  //             "Your Application has been selected.",
-  //             "success"
-  //           );
-  //           handlePayment(applicationInfo);
-  //         } else if (res.data.message === "application exists") {
-  //           Swal.fire({
-  //             icon: "error",
-  //             title: "Already Selected",
-  //             text: "Never apply for some scholarship!",
-  //             footer: '<a href="#">Why do I have this issue?</a>',
-  //           });
-  //         }
-  //       });
-  //     }
-  //   });
-  // };
+            Swal.fire(
+              "Selected for apply!",
+              "Your Application has been selected.",
+              "success"
+            );
+          } else if (res.data.message === "application exists") {
+            Swal.fire({
+              icon: "error",
+              title: "Already Selected",
+              text: "Never apply for some scholarship!",
+              footer: '<a href="#">Why do I have this issue?</a>',
+            });
+          }
+        });
+      }
+    });
+  };
 
   // if (isLoading) {
   //   return <Loading></Loading>;
@@ -252,7 +251,7 @@ const ScholarshipDetails = () => {
             </p>
             {/* <Link to={`/application/${_id}`}> */}
             <button
-              onClick={() => navigate("/dashboard/my-applications")}
+              onClick={() => handleApply(scholarshipData)}
               className="btn bg-base-200 btn-lg w-full text-base-100"
             >
               Apply Now

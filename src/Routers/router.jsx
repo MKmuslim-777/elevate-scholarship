@@ -24,6 +24,7 @@ import AllReviews from "../Pages/Dashboard/AllReviews/AllReviews";
 import ManageApplied from "../Pages/Dashboard/ManageApplied/ManageApplied";
 import DashBoardHomeAuth from "../Pages/DashBoardHomeAuth/DashBoardHomeAuth";
 import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
+import UpdateScholarship from "../Pages/Dashboard/UpdateScholarship/UpdateScholarship";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllScholarshipsAdmin></AllScholarshipsAdmin>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-scholarship/:id",
+        element: (
+          <AdminRoute>
+            <UpdateScholarship></UpdateScholarship>
           </AdminRoute>
         ),
       },
