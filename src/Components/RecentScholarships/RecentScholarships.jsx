@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Loading from "../../Shared/Loading/Loading";
 import { FaArrowRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const RecentScholarships = () => {
   const axiosSecure = useAxiosSecure();
@@ -40,13 +41,15 @@ const RecentScholarships = () => {
             </h2>
           </div>
 
-          <Link
-            to={"/all-scholarships"}
-            className="group flex items-center  gap-3 bg-white border-2 border-primary text-primary px-6 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-blue-100"
-          >
-            Explore All
-            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <motion.button whileTap={{ scale: 0.9 }} className="">
+            <Link
+              to={"/all-scholarships"}
+              className="group flex items-center  gap-3 bg-white border-2 border-primary text-primary px-6 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-blue-100"
+            >
+              Explore All
+              <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.button>
         </div>
 
         {/* Cards Grid */}
