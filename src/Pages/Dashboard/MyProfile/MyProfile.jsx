@@ -136,9 +136,9 @@ const MyProfile = () => {
               User ID:{" "}
               <span className="font-mono text-xs">{userInfo?._id}</span>
             </p>
-            <button className="btn btn-primary rounded-xl px-8 shadow-lg shadow-primary/20 text-base-100">
+            {/* <button className="btn btn-primary rounded-xl px-8 shadow-lg shadow-primary/20 text-base-100">
               Edit Profile
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

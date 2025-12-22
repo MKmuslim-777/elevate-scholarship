@@ -19,6 +19,7 @@ const MyComments = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [rating, setRating] = useState(0);
+  const [newComment, setNewComment] = useState(null);
 
   const StarInput = ({ selected, onClick }) => (
     <svg
@@ -69,15 +70,17 @@ const MyComments = () => {
 
   const handleEditCommentSubmit = (review) => {
     const reviewsInfo = {
-      ratings: reviews.rating,
+      ratings: rating,
       reviewerPhoto: user.photoURL,
       reviewerEmail: user.email,
       reviewerName: user.displayName,
-      reviewerComment: review.reviewerComment,
+      reviewerComment: newComment,
       scholarshipId: review.scholarshipId,
       universityName: review.universityName,
       scholarshipName: review.scholarshipName,
     };
+
+    console.log(reviewsInfo);
 
     axiosSecure.patch(`/reviews/${review._id}`, reviewsInfo).then((res) => {
       if (res.data.modifiedCount > 0) {
@@ -290,6 +293,9 @@ const MyComments = () => {
                                 className="input input-bordered w-full h-20"
                                 placeholder="Share your experience..."
                                 defaultValue={review?.reviewerComment}
+                                onChange={() =>
+                                  setNewComment(event.target.value)
+                                }
                               />
                             </div>
 
