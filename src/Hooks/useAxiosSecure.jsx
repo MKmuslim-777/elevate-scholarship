@@ -5,8 +5,8 @@ import { useNavigate } from "react-router";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
-  // baseURL: "https://scholarship-stream-server-eleven.vercel.app",
+  // baseURL: "http://localhost:3000",
+  baseURL: "https://scholarship-stream-server-eleven.vercel.app",
 });
 
 const useAxiosSecure = () => {

@@ -110,7 +110,7 @@ const ModeratorHome = () => {
                 <thead>
                   <tr className="text-gray-400 uppercase text-xs">
                     <th>Student</th>
-                    <th>University</th>
+                    <th>Scholarship</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -123,7 +123,7 @@ const ModeratorHome = () => {
                       <td className="font-medium text-gray-700">
                         {app.userName}
                       </td>
-                      <td className="text-gray-500">{app.universityName}</td>
+                      <td className="text-gray-500">{app.scholarshipName}</td>
                       <td>
                         <Link to="/dashboard/manage-applied-applications">
                           <button className="btn btn-ghost btn-xs text-primary">

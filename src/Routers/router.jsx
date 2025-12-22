@@ -8,7 +8,6 @@ import Register from "../Pages/Auth/Register/Register";
 import ScholarshipDetails from "../Pages/ScholarshipDetails/ScholarshipDetails";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
-import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 import AddScholarship from "../Pages/Dashboard/AddScholarship/AddScholarship";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 import AllScholarshipsAdmin from "../Pages/Dashboard/AllScholarshipsAdmin/AllScholarshipsAdmin";

@@ -11,7 +11,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start text-center md:text-left">
           {/* Brand Section */}
           <div className="flex flex-col items-center md:items-start space-y-4">
-            <Logo />
+            <img
+              src="https://i.ibb.co.com/rf5yZYXF/Gemini-Generated-Image-ao7oqvao7oqvao7o.png"
+              alt=""
+              className="w-[140px]"
+            />
             <p className="text-gray-400 max-w-xs leading-relaxed">
               Empowering students worldwide to achieve their academic dreams
               through streamlined scholarship opportunities.

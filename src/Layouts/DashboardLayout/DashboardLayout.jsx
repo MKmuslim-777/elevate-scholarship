@@ -156,7 +156,7 @@ const DashboardLayout = () => {
             {role === "student" && (
               <>
                 <div className="divider before:bg-white/5 after:bg-white/5 my-6 opacity-50 px-4"></div>
-                <li>
+                {/* <li>
                   <NavLink
                     to="/dashboard"
                     end
@@ -169,7 +169,7 @@ const DashboardLayout = () => {
                     <RiDashboardLine className="text-xl" />
                     <span className="text-sm">Overview</span>
                   </NavLink>
-                </li>
+                </li> */}
                 <li>
                   <NavLink
                     to="/dashboard/my-applications"

@@ -50,9 +50,9 @@ const Navbar = () => {
           <FaGraduationCap /> Scholarships
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink
-          to="/myProperties"
+          to="/dashboard/my-applications"
           className={({ isActive }) =>
             `flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
               isActive
@@ -61,9 +61,9 @@ const Navbar = () => {
             }`
           }
         >
-          <GoStack /> My Properties
+          <GoStack /> My Applications
         </NavLink>
-      </li>
+      </li> */}
     </>
   );
 
