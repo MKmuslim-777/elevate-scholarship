@@ -1,16 +1,59 @@
-# React + Vite
+# 🎓 ScholarStream - Global Scholarship Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**ScholarStream** is a robust Full-Stack Web Application designed to streamline the scholarship application process for students worldwide. It connects aspiring students with university scholarships, providing a seamless path from discovery to application.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Links
+- **Live Demo:** [https://elevate-scholar-mk.web.app/](https://elevate-scholar-mk.web.app/)
+- **Client Repository:** [https://github.com/MKmuslim-777/elevate-scholarship](https://github.com/MKmuslim-777/elevate-scholarship)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+### For Students:
+- **Browse Scholarships:** Explore a wide range of scholarships from universities across the globe.
+- **Easy Application:** Apply for selected scholarships with a user-friendly interface.
+- **Payment Integration:** Secure payment system for application fees.
+- **Track Status:** Monitor the real-time status of applications (Pending, Processing, Approved/Rejected).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### For Moderators:
+- **Application Review:** Verify student details and documents.
+- **Status Management:** Update application status after thorough verification.
+
+### General:
+- **Authentication:** Secure Login/Sign-up using Firebase (Social & Email).
+- **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop.
+- **Smooth Animations:** Interactive UI using Framer Motion.
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend:**
+- React.js
+- Tailwind CSS (Styling)
+- Framer Motion (Animations)
+- React Router (Navigation)
+
+**Backend:**
+- Node.js
+- Express.js
+
+**Database & Auth:**
+- MongoDB (NoSQL Database)
+- Firebase Authentication
+
+**Tools & Deployment:**
+- Git & GitHub (Version Control)
+- Firebase (Hosting)
+- Vercel/Render (Server Hosting)
+
+---
+
+## 🚀 Installation & Local Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MKmuslim-777/elevate-scholarship.git
