@@ -25,6 +25,8 @@ import ManageApplied from "../Pages/Dashboard/ManageApplied/ManageApplied";
 import DashBoardHomeAuth from "../Pages/DashBoardHomeAuth/DashBoardHomeAuth";
 import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
 import UpdateScholarship from "../Pages/Dashboard/UpdateScholarship/UpdateScholarship";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import Contact from "../Components/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: "/all-scholarships",
         Component: AllScholarship,
+      },
+      {
+        path: "/about",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
       },
       {
         path: "application/:scholarshipId",
@@ -58,7 +68,7 @@ const router = createBrowserRouter([
         //   fetch(`http://localhost:3000/scholarships/${params.id}`),
         loader: ({ params }) =>
           fetch(
-            `https://scholarship-stream-server-eleven.vercel.app/scholarships/${params.id}`
+            `https://scholarship-stream-server-eleven.vercel.app/scholarships/${params.id}`,
           ),
       },
     ],

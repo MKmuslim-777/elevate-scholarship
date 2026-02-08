@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import useAxios from "../../../Hooks/useAxios";
-import { FcGoogle } from "react-icons/fc"; // More reliable than custom SVG
+import { FcGoogle } from "react-icons/fc";
 
 const SocialLogin = () => {
   const { signInGoogle } = useAuth();

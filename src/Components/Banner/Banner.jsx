@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const Banner = () => {
   return (
-    <div className="bg-base-100 py-10 md:py-6 overflow-hidden mt-6">
+    <div className="bg-base-100 mt-20 py-10 md:py-6 overflow-hidden mt-6">
       <div className="container mx-auto px-4">
         <div className="gap-10">
           <div className="text-center  flex flex-col justify-center items-center">

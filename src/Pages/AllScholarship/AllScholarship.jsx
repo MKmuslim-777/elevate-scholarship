@@ -26,7 +26,7 @@ const AllScholarship = () => {
   refetch();
 
   return (
-    <div className="container mx-auto px-4 py-10 min-h-screen">
+    <div className="container mx-auto px-4 py-10 min-h-screen mt-20">
       <div className="text-center mb-10">
         <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
           Explore All Scholarships
