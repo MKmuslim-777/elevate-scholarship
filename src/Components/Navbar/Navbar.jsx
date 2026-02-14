@@ -15,6 +15,7 @@ import { Link, NavLink } from "react-router";
 import { toast } from "react-toastify";
 import useAuth from "../../Hooks/useAuth";
 import Logo from "../../Shared/Logo/Logo";
+import ThemeToggle from "../../Shared/ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
@@ -22,27 +23,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   // থিম স্টেট (LocalStorage থেকে ডিফল্ট ভ্যালু নিচ্ছে)
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
-  // থিম পরিবর্তন করার লজিক
-  useEffect(() => {
-    const html = document.documentElement;
-
-    // DaisyUI এর জন্য data-theme সেট করা
-    html.setAttribute("data-theme", theme);
-
-    // Tailwind এর dark: ক্লাসের জন্য classList আপডেট করা
-    if (theme === "dark") {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
-    }
-
-    // লোকাল স্টোরেজে সেভ রাখা যাতে রিফ্রেশ দিলেও থিম না যায়
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   // স্ক্রল এফেক্ট হ্যান্ডলার
   useEffect(() => {
@@ -133,16 +113,7 @@ const Navbar = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="p-2.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-all shadow-sm"
-          >
-            {theme === "light" ? (
-              <FaMoon />
-            ) : (
-              <FaSun className="text-yellow-500" />
-            )}
-          </button>
+          <ThemeToggle />
 
           {user ? (
             <div className="dropdown dropdown-end group">

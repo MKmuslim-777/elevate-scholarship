@@ -1,118 +1,128 @@
 import React from "react";
-import { FaBullseye, FaEye, FaHandshake } from "react-icons/fa";
-import aboutImg from "../../assets/about-team.jpg"; // Replace with your actual image path
-import { Link } from "react-router";
+import {
+  FaBullseye,
+  FaEye,
+  FaHandshake,
+  FaGlobe,
+  FaGraduationCap,
+  FaUsers,
+} from "react-icons/fa";
 
 const AboutUs = () => {
+  const stats = [
+    {
+      id: 1,
+      label: "Total Funding",
+      value: "$2.5M+",
+      icon: <FaGlobe />,
+      color: "text-blue-600",
+    },
+    {
+      id: 2,
+      label: "Partner Universities",
+      value: "150+",
+      icon: <FaGraduationCap />,
+      color: "text-purple-600",
+    },
+    {
+      id: 3,
+      label: "Active Students",
+      value: "50K+",
+      icon: <FaUsers />,
+      color: "text-emerald-600",
+    },
+  ];
+
   return (
-    <div className="bg-base-100 min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-primary/5 rounded-4xl mt-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            About <span className="text-primary">ScholarStream</span>
+    <div className="bg-white min-h-screen">
+      {/* --- Hero Section --- */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100 rounded-full blur-[120px] opacity-50"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-100 rounded-full blur-[120px] opacity-50"></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-bold tracking-widest text-primary uppercase bg-primary/10 rounded-full">
+            Empowering Futures
+          </span>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight">
+            We are{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary/80 to-primary">
+              ScholarStream
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Connecting ambitious students with global opportunities. We bridge
-            the gap between financial constraints and academic excellence
-            through a seamless, data-driven scholarship ecosystem.
+          <p className="text-lg md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
+            ScholarStream is more than a platform; it's a bridge. We connect
+            world-class talent with life-changing opportunities, making
+            education accessible to everyone, everywhere.
           </p>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section className="py-16 container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Image Side */}
-          <div className="w-full lg:w-1/2">
-            <div className="relative">
-              <div className="absolute -top-4 -left-4 w-72 h-72 bg-secondary/20 rounded-full blur-3xl"></div>
-              <img
-                src="https://i.ibb.co.com/qF5vmq8z/photo-1523240795612-9a054b0db644.avif"
-                alt="Students studying"
-                className="relative rounded-2xl shadow-2xl z-10 w-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Text Side */}
-          <div className="w-full lg:w-1/2 space-y-6">
-            <h2 className="text-3xl font-bold text-gray-800">Our Story</h2>
-            <p className="text-gray-600 text-lg">
-              Founded in 2024, ScholarStream began with a simple observation:
-              thousands of life-changing scholarships go unclaimed every year
-              because students simply don't know they exist.
-            </p>
-            <p className="text-gray-600 text-lg">
-              We built this platform to "streamline" the search process,
-              providing a transparent and efficient way for students to
-              discover, track, and apply for funding that fits their unique
-              profiles.
-            </p>
-            {/* <div className="stats shadow bg-base-200 w-full mt-4">
-              <div className="stat place-items-center">
-                <div className="stat-title text-gray-500">Total Funding</div>
-                <div className="stat-value text-primary">$2.5M+</div>
-              </div>
-              <div className="stat place-items-center border-l border-gray-300">
-                <div className="stat-title text-gray-500">
-                  Partner Universities
+      {/* --- Stats Section --- */}
+      <section className="py-12 bg-base-100 border-y border-slate-100">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {stats.map((stat) => (
+              <div
+                key={stat.id}
+                className="flex items-center justify-center gap-6 p-8 bg-white rounded-3xl shadow-sm border border-slate-100"
+              >
+                <div
+                  className={`text-4xl ${stat.color} bg-slate-50 p-4 rounded-2xl`}
+                >
+                  {stat.icon}
                 </div>
-                <div className="stat-value text-secondary">150+</div>
+                <div>
+                  <div className="text-3xl font-black text-slate-900">
+                    {stat.value}
+                  </div>
+                  <div className="text-slate-500 font-medium">{stat.label}</div>
+                </div>
               </div>
-            </div> */}
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision Cards */}
-      {/* <section className=" py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-         
-            <div className="card bg-white shadow-xl hover:-translate-y-2 transition-transform duration-300">
-              <div className="card-body items-center text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <FaBullseye className="text-primary text-3xl" />
-                </div>
-                <h2 className="card-title text-2xl mb-2">Our Mission</h2>
-                <p className="text-gray-600">
-                  To democratize access to education by providing a transparent
-                  gateway to financial aid for students worldwide.
-                </p>
-              </div>
-            </div>
-
-           
-            <div className="card bg-white shadow-xl hover:-translate-y-2 transition-transform duration-300">
-              <div className="card-body items-center text-center">
-                <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
-                  <FaEye className="text-secondary text-3xl" />
-                </div>
-                <h2 className="card-title text-2xl mb-2">Our Vision</h2>
-                <p className="text-gray-600">
-                  To become the global gold standard for scholarship management
-                  and student funding discovery.
-                </p>
-              </div>
-            </div>
-
-            
-            <div className="card bg-white shadow-xl hover:-translate-y-2 transition-transform duration-300">
-              <div className="card-body items-center text-center">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4">
-                  <FaHandshake className="text-accent text-3xl" />
-                </div>
-                <h2 className="card-title text-2xl mb-2">Our Values</h2>
-                <p className="text-gray-600">
-                  Integrity, accessibility, and innovation guide every decision
-                  we make for our student community.
-                </p>
-              </div>
+      {/* --- Our Story & Image Section --- */}
+      <section className="py-24 container mx-auto px-6">
+        <div className="flex flex-col lg:flex-row items-center gap-20">
+          <div className="w-full lg:w-1/2 relative">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-primary/80 to-primary/50 rounded-[2.5rem] blur opacity-20 transform -rotate-3"></div>
+            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl">
+              <img
+                src="https://i.ibb.co.com/qF5vmq8z/photo-1523240795612-9a054b0db644.avif"
+                alt="ScholarStream Team"
+                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+              />
             </div>
           </div>
+
+          <div className="w-full lg:w-1/2 space-y-8">
+            <h2 className="text-4xl font-bold text-slate-900 leading-snug">
+              Started from a Simple Need: <br />
+              <span className="text-primary">Transparency in Education.</span>
+            </h2>
+            <div className="space-y-4 text-slate-600 text-lg leading-relaxed">
+              <p>
+                Founded in 2024, ScholarStream began when we realized that
+                thousands of brilliant students miss out on funding simply
+                because of complex application processes and hidden information.
+              </p>
+              <p>
+                Our data-driven ecosystem "streams" the right opportunities to
+                the right students, ensuring that merit and ambition are the
+                only criteria for success, not financial background.
+              </p>
+            </div>
+            <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-primary transition-colors shadow-lg shadow-slate-200">
+              Learn More About Our Process
+            </button>
+          </div>
         </div>
-      </section> */}
+      </section>
     </div>
   );
 };

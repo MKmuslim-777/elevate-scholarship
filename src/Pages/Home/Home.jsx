@@ -8,11 +8,12 @@ import Faq from "../../Components/FAQ/Faq";
 import Cta from "../../Components/CTA/Cta";
 import { motion } from "motion/react";
 import FramerMotion from "../../Shared/FramerMotion/FramerMotion";
+import BannerSlider from "../../Components/BannerSlider/BannerSlider";
 
 const Home = () => {
   return (
     <div>
-      <Banner></Banner>
+      <BannerSlider></BannerSlider>
       {/* <FramerMotion></FramerMotion> */}
 
       <div>
